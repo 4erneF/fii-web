@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>О факультете — Факультет ИИ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ===== ABOUT PAGE STYLES ===== */
+
+    /* Hero */
+    .about-hero {
+      position: relative;
+      padding: 100px 0 80px;
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--white) 0%, var(--gray-50) 50%, rgba(13, 148, 136, 0.05) 100%);
+    }
+
+    .about-hero__inner {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      max-width: 820px;
+      margin: 0 auto;
+    }
+
+    .about-hero__tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(37, 99, 235, 0.08);
+      color: var(--red);
+      font-size: 14px;
+      font-weight: 600;
+      padding: 6px 16px;
+      border-radius: 20px;
+      margin-bottom: 24px;
+      border: 1px solid rgba(37, 99, 235, 0.15);
+    }
+
+    .about-hero__tag-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent-teal);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+
+    .about-hero__title {
+      font-family: var(--font-heading);
+      font-size: clamp(36px, 6vw, 64px);
+      line-height: 1.1;
+      margin-bottom: 24px;
+      background: linear-gradient(135deg, var(--red) 0%, var(--accent-teal) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .about-hero__lead {
+      font-size: clamp(16px, 2.2vw, 19px);
+      color: var(--gray-600);
+      line-height: 1.75;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    /* Manifesto section */
+    .about-manifesto {
+      padding: 80px 0 20px;
+      background:
+        radial-gradient(circle at 20% 0%, rgba(37, 99, 235, 0.08), transparent 45%),
+        radial-gradient(circle at 80% 100%, rgba(13, 148, 136, 0.08), transparent 40%),
+        var(--white);
+    }
+
+    .manifesto-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 22px;
+      margin-top: 42px;
+    }
+
+    .manifesto-card {
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid rgba(37, 99, 235, 0.12);
+      box-shadow: 0 8px 30px rgba(37, 99, 235, 0.09);
+      border-radius: var(--radius);
+      padding: 30px 28px;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .manifesto-card::before {
+      content: '';
+      position: absolute;
+      inset: 0 auto auto 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--red), var(--accent-teal));
+      opacity: 0.9;
+    }
+
+    .manifesto-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 44px rgba(37, 99, 235, 0.15);
+      border-color: rgba(37, 99, 235, 0.22);
+    }
+
+    .manifesto-card__text {
+      font-size: 16px;
+      color: var(--gray-600);
+      line-height: 1.75;
+    }
+
+    /* Overview section */
+    .about-overview {
+      padding: 100px 0;
+      background: var(--white);
+    }
+
+    .overview-blocks {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      max-width: 900px;
+      margin: 60px auto 0;
+    }
+
+    .overview-block {
+      display: flex;
+      gap: 32px;
+      padding: 40px 0;
+      border-bottom: 1px solid rgba(37, 99, 235, 0.08);
+      position: relative;
+    }
+
+    .overview-block:last-child {
+      border-bottom: none;
+    }
+
+    .overview-block__num {
+      flex-shrink: 0;
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--red) 0%, var(--accent-teal) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-heading);
+      font-size: 20px;
+      color: white;
+      box-shadow: 0 4px 16px rgba(37, 99, 235, 0.25);
+      margin-top: 2px;
+    }
+
+    .overview-block__body {
+      flex: 1;
+    }
+
+    .overview-block__text {
+      font-size: 17px;
+      color: var(--gray-600);
+      line-height: 1.8;
+    }
+
+    .overview-block__text strong {
+      color: var(--black);
+      font-weight: 600;
+    }
+
+    /* Infra section */
+    .about-infra {
+      padding: 100px 0;
+      background: var(--gray-50);
+    }
+
+    .about-infra__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .about-infra__text h2 {
+      font-family: var(--font-heading);
+      font-size: clamp(26px, 3.5vw, 38px);
+      line-height: 1.2;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, var(--red) 0%, var(--accent-teal) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .about-infra__text p {
+      font-size: 17px;
+      color: var(--gray-600);
+      line-height: 1.75;
+    }
+
+    .about-infra__cards {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .infra-card {
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      border-radius: var(--radius);
+      padding: 28px 32px;
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      box-shadow: 0 4px 24px rgba(37, 99, 235, 0.07);
+      transition: var(--transition);
+    }
+
+    .infra-card:hover {
+      transform: translateX(8px);
+      box-shadow: 0 8px 32px rgba(37, 99, 235, 0.15);
+      border-color: rgba(37, 99, 235, 0.2);
+    }
+
+    .infra-card__icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--red) 0%, var(--accent-teal) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 4px 16px rgba(37, 99, 235, 0.3);
+    }
+
+    .infra-card__icon svg {
+      width: 24px;
+      height: 24px;
+      stroke: white;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .infra-card__title {
+      font-family: var(--font-heading);
+      font-size: 17px;
+      color: var(--black);
+      margin-bottom: 6px;
+    }
+
+    .infra-card__desc {
+      font-size: 14px;
+      color: var(--gray-600);
+      line-height: 1.6;
+    }
+
+    /* Partners section */
+    .about-partners {
+      padding: 100px 0;
+      background: var(--white);
+    }
+
+    .partners-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px;
+      margin-top: 56px;
+    }
+
+    .partner-card {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      border-radius: var(--radius);
+      padding: 40px 36px;
+      text-align: center;
+      box-shadow: 0 4px 24px rgba(37, 99, 235, 0.07);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .partner-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--red), var(--accent-teal));
+      opacity: 0;
+      transition: var(--transition);
+    }
+
+    .partner-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 16px 48px rgba(37, 99, 235, 0.16);
+      border-color: rgba(37, 99, 235, 0.2);
+    }
+
+    .partner-card:hover::before {
+      opacity: 1;
+    }
+
+    .partner-card__logo {
+      font-family: var(--font-heading);
+      font-size: 32px;
+      background: linear-gradient(135deg, var(--red) 0%, var(--accent-teal) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 16px;
+    }
+
+    .partner-card__name {
+      font-family: var(--font-heading);
+      font-size: 20px;
+      color: var(--black);
+      margin-bottom: 12px;
+    }
+
+    .partner-card__desc {
+      font-size: 15px;
+      color: var(--gray-600);
+      line-height: 1.65;
+    }
+
+    /* Stats section */
+    .about-stats {
+      padding: 100px 0;
+      background: linear-gradient(135deg, #1E3A5F 0%, #0D9488 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-stats::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    .about-stats__inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      margin-top: 56px;
+    }
+
+    .stat-card {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: var(--radius);
+      padding: 36px 24px;
+      text-align: center;
+      transition: var(--transition);
+    }
+
+    .stat-card:hover {
+      background: rgba(255, 255, 255, 0.14);
+      border-color: rgba(255, 255, 255, 0.25);
+      transform: translateY(-6px);
+    }
+
+    .stat-card__number {
+      font-family: var(--font-heading);
+      font-size: 48px;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .stat-card__label {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.7);
+      line-height: 1.5;
+    }
+
+    /* Career section */
+    .about-career {
+      padding: 100px 0;
+      background: var(--gray-50);
+    }
+
+    .career-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      margin-top: 56px;
+    }
+
+    .career-text p {
+      font-size: 18px;
+      color: var(--gray-600);
+      line-height: 1.8;
+    }
+
+    .career-highlights {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .career-highlight {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      border-radius: var(--radius-sm);
+      padding: 20px 24px;
+      box-shadow: 0 4px 16px rgba(37, 99, 235, 0.06);
+      transition: var(--transition);
+    }
+
+    .career-highlight:hover {
+      transform: translateX(6px);
+      box-shadow: 0 8px 28px rgba(37, 99, 235, 0.13);
+    }
+
+    .career-highlight__check {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--red), var(--accent-teal));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .career-highlight__check svg {
+      width: 18px;
+      height: 18px;
+      stroke: white;
+      fill: none;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .career-highlight__text {
+      font-size: 15px;
+      color: var(--gray-800);
+      font-weight: 500;
+      line-height: 1.5;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .about-infra__grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .career-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .manifesto-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .partners-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header" id="header">
+    <div class="container header__inner">
+      <a href="index.html" class="header__logo">
+        <span class="header__logo-icon">AI</span>
+        <span class="header__logo-text">Факультет ИИ</span>
+      </a>
+      <button class="header__burger" id="burger" aria-label="Открыть меню">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+  <nav class="sidebar" id="sidebar">
+    <button class="sidebar__close" id="sidebarClose" aria-label="Закрыть меню">&times;</button>
+    <ul class="sidebar__menu">
+      <li><a href="about.html" class="sidebar__link"><svg class="sidebar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>О факультете</a></li>
+      <li><a href="achievements.html" class="sidebar__link"><svg class="sidebar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5C7 4 7 7 7 7"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5C17 4 17 7 17 7"/><path d="M4 22h16"/><path d="M10 22V8a5 5 0 0 1 4 0v14"/><path d="M8 9h8l1 13H7z"/></svg>Достижения</a></li>
+      <li><a href="reviews.html" class="sidebar__link"><svg class="sidebar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Отзывы</a></li>
+      <li><a href="admission.html" class="sidebar__link"><svg class="sidebar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Этапы поступления</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="about-hero">
+    <div class="hero__blob hero__blob--1"></div>
+    <div class="hero__blob hero__blob--2"></div>
+    <div class="hero__blob hero__blob--3"></div>
+    <div class="container about-hero__inner">
+      <div class="about-hero__tag fade-up">
+        <span class="about-hero__tag-dot"></span>
+        Факультет будущего
+      </div>
+      <h1 class="about-hero__title fade-up">О факультете<br>искусственного интеллекта</h1>
+      <p class="about-hero__lead fade-up">
+        Факультет искусственного интеллекта готовит специалистов в сфере анализа данных, машинного обучения и глубокого обучения нового уровня.
+      </p>
+    </div>
+  </section>
+
+  <!-- MANIFESTO -->
+  <section class="about-manifesto">
+    <div class="container">
+      <h2 class="section__title fade-up">О факультете</h2>
+      <p class="section__subtitle fade-up">Ключевые принципы обучения, инфраструктура и карьерные возможности</p>
+      <div class="manifesto-grid">
+        <article class="manifesto-card fade-up">
+          <p class="manifesto-card__text">
+            Факультет искусственного интеллекта готовит специалистов в сфере анализа данных, машинного обучения и глубокого обучения нового уровня. Выпускники факультета смогут успешно реализовать себя как в работе в государственных корпорациях, так и в рамках частного бизнеса, решать практические задачи по развитию, созданию и усовершенствованию технологий искусственного интеллекта.
+          </p>
+        </article>
+        <article class="manifesto-card fade-up fade-up-delay-1">
+          <p class="manifesto-card__text">
+            Факультет оснащен современным техническим оборудованием. Открыта лаборатория искусственного интеллекта, в которой студенты и преподаватели могут реализовать самые смелые проекты под менторством ведущих разработчиков в сфере искусственного интеллекта. Обучающимся предоставляется доступ к суперкомпьютеру РУДН.
+          </p>
+        </article>
+        <article class="manifesto-card fade-up fade-up-delay-2">
+          <p class="manifesto-card__text">
+            Образовательные программы факультета искусственного интеллекта реализуются совместно с компаниями-партнерами — Сбер и Альфа-Банк — IT-гигантами, признанными не только в России. Обучение направлено на развитие конкретных практических навыков в области искусственного интеллекта необходимых для работы в крупнейших компаниях отрасли.
+          </p>
+        </article>
+        <article class="manifesto-card fade-up fade-up-delay-3">
+          <p class="manifesto-card__text">
+            Большинство студентов могут получить предложение о работе еще до окончания обучения в бакалавриате и имеют возможность продолжить учебу в магистратуре за счет работодателя.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- OVERVIEW -->
+  <section class="about-overview">
+    <div class="container">
+      <h2 class="section__title fade-up">О факультете</h2>
+      <p class="section__subtitle fade-up">Всё, что нужно знать о нашем направлении</p>
+      <div class="overview-blocks">
+
+        <div class="overview-block fade-up">
+          <div class="overview-block__num">1</div>
+          <div class="overview-block__body">
+            <p class="overview-block__text">
+              Факультет искусственного интеллекта готовит специалистов в сфере <strong>анализа данных, машинного обучения и глубокого обучения</strong> нового уровня. Выпускники факультета смогут успешно реализовать себя как в работе в государственных корпорациях, так и в рамках частного бизнеса, решать практические задачи по развитию, созданию и усовершенствованию технологий искусственного интеллекта.
+            </p>
+          </div>
+        </div>
+
+        <div class="overview-block fade-up fade-up-delay-1">
+          <div class="overview-block__num">2</div>
+          <div class="overview-block__body">
+            <p class="overview-block__text">
+              Факультет оснащён современным техническим оборудованием. Открыта <strong>лаборатория искусственного интеллекта</strong>, в которой студенты и преподаватели могут реализовать самые смелые проекты под менторством ведущих разработчиков в сфере искусственного интеллекта. Обучающимся предоставляется доступ к <strong>суперкомпьютеру РУДН</strong>.
+            </p>
+          </div>
+        </div>
+
+        <div class="overview-block fade-up fade-up-delay-2">
+          <div class="overview-block__num">3</div>
+          <div class="overview-block__body">
+            <p class="overview-block__text">
+              Образовательные программы факультета реализуются совместно с компаниями-партнёрами — <strong>Сбер и Альфа-Банк</strong> — IT-гигантами, признанными не только в России. Обучение направлено на развитие конкретных практических навыков в области искусственного интеллекта, необходимых для работы в крупнейших компаниях отрасли.
+            </p>
+          </div>
+        </div>
+
+        <div class="overview-block fade-up fade-up-delay-3">
+          <div class="overview-block__num">4</div>
+          <div class="overview-block__body">
+            <p class="overview-block__text">
+              Большинство студентов могут получить <strong>предложение о работе ещё до окончания обучения</strong> в бакалавриате и имеют возможность продолжить учёбу в магистратуре <strong>за счёт работодателя</strong>.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- INFRASTRUCTURE -->
+  <section class="about-infra">
+    <div class="container">
+      <div class="about-infra__grid">
+        <div class="about-infra__text fade-up">
+          <h2>Современная инфраструктура для передовых исследований</h2>
+          <p>
+            Факультет оснащён современным техническим оборудованием. Открыта лаборатория искусственного интеллекта, в которой студенты и преподаватели могут реализовать самые смелые проекты под менторством ведущих разработчиков в сфере ИИ.
+          </p>
+        </div>
+        <div class="about-infra__cards">
+          <div class="infra-card fade-up fade-up-delay-1">
+            <div class="infra-card__icon">
+              <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            </div>
+            <div>
+              <div class="infra-card__title">Лаборатория ИИ</div>
+              <div class="infra-card__desc">Пространство для реализации самых смелых идей под руководством ведущих разработчиков отрасли</div>
+            </div>
+          </div>
+          <div class="infra-card fade-up fade-up-delay-2">
+            <div class="infra-card__icon">
+              <svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+            </div>
+            <div>
+              <div class="infra-card__title">Суперкомпьютер РУДН</div>
+              <div class="infra-card__desc">Обучающимся предоставляется доступ к вычислительным мощностям суперкомпьютера РУДН для масштабных задач</div>
+            </div>
+          </div>
+          <div class="infra-card fade-up fade-up-delay-3">
+            <div class="infra-card__icon">
+              <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+            </div>
+            <div>
+              <div class="infra-card__title">Современное оборудование</div>
+              <div class="infra-card__desc">Передовая техническая база, обеспечивающая практическую подготовку на уровне индустриальных стандартов</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="about-stats">
+    <div class="container about-stats__inner">
+      <h2 class="section__title section__title--light fade-up">Факультет в цифрах</h2>
+      <p class="section__subtitle section__subtitle--light fade-up">Результаты, которыми мы гордимся</p>
+      <div class="stats-grid">
+        <div class="stat-card fade-up fade-up-delay-1">
+          <div class="stat-card__number">100%</div>
+          <div class="stat-card__label">студентов получают практические навыки ИИ</div>
+        </div>
+        <div class="stat-card fade-up fade-up-delay-2">
+          <div class="stat-card__number">2+</div>
+          <div class="stat-card__label">компании-партнёра мирового уровня</div>
+        </div>
+        <div class="stat-card fade-up fade-up-delay-3">
+          <div class="stat-card__number">1</div>
+          <div class="stat-card__label">суперкомпьютер в распоряжении студентов</div>
+        </div>
+        <div class="stat-card fade-up fade-up-delay-4">
+          <div class="stat-card__number">∞</div>
+          <div class="stat-card__label">возможностей для реализации идей</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARTNERS -->
+  <section class="about-partners">
+    <div class="container">
+      <h2 class="section__title fade-up">Партнёры факультета</h2>
+      <p class="section__subtitle fade-up">Образовательные программы реализуются совместно с IT-гигантами, признанными не только в России</p>
+      <div class="partners-grid">
+        <div class="partner-card fade-up fade-up-delay-1">
+          <div class="partner-card__logo">Сбер</div>
+          <div class="partner-card__name">Сбербанк</div>
+          <div class="partner-card__desc">Один из крупнейших технологических банков мира активно развивает направление ИИ и участвует в подготовке специалистов нового поколения</div>
+        </div>
+        <div class="partner-card fade-up fade-up-delay-2">
+          <div class="partner-card__logo">Альфа</div>
+          <div class="partner-card__name">Альфа-Банк</div>
+          <div class="partner-card__desc">Лидер в области цифровых банковских технологий, внедряющий передовые решения на основе искусственного интеллекта и машинного обучения</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CAREER -->
+  <section class="about-career">
+    <div class="container">
+      <h2 class="section__title fade-up">Карьера ещё до диплома</h2>
+      <p class="section__subtitle fade-up">Обучение направлено на развитие конкретных практических навыков в области ИИ</p>
+      <div class="career-content">
+        <div class="career-text fade-up">
+          <p>
+            Большинство студентов могут получить предложение о работе ещё до окончания обучения в бакалавриате и имеют возможность продолжить учёбу в магистратуре за счёт работодателя.
+          </p>
+        </div>
+        <div class="career-highlights">
+          <div class="career-highlight fade-up fade-up-delay-1">
+            <div class="career-highlight__check">
+              <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <div class="career-highlight__text">Оффер до окончания бакалавриата</div>
+          </div>
+          <div class="career-highlight fade-up fade-up-delay-2">
+            <div class="career-highlight__check">
+              <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <div class="career-highlight__text">Магистратура за счёт работодателя</div>
+          </div>
+          <div class="career-highlight fade-up fade-up-delay-3">
+            <div class="career-highlight__check">
+              <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <div class="career-highlight__text">Работа в государственных корпорациях и частном бизнесе</div>
+          </div>
+          <div class="career-highlight fade-up fade-up-delay-4">
+            <div class="career-highlight__check">
+              <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <div class="career-highlight__text">Менторство от ведущих разработчиков ИИ</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section apply">
+    <div class="container apply__inner">
+      <h2 class="section__title section__title--light fade-up">Стань частью факультета будущего</h2>
+      <p class="section__subtitle section__subtitle--light fade-up">Начни путь к карьере в сфере искусственного интеллекта уже сегодня</p>
+      <a href="admission.html" class="btn btn--white btn--lg fade-up">Узнать об условиях поступления</a>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>

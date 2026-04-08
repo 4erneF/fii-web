@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Факультет Искусственного Интеллекта</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="header" id="header">
+    <div class="container header__inner">
+      <a href="#" class="header__logo">
+        <span class="header__logo-icon">AI</span>
+        <span class="header__logo-text">Факультет ИИ</span>
+      </a>
+
+      <button class="btn btn--primary header__cta" onclick="openChat()">Задать вопрос ИИ</button>
+
+      <button class="header__burger" id="burger" aria-label="Открыть меню">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ===== SIDEBAR NAV ===== -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+  <nav class="sidebar" id="sidebar">
+    <button class="sidebar__close" id="sidebarClose" aria-label="Закрыть меню">&times;</button>
+    <ul class="sidebar__menu">
+      <li>
+        <a href="about.html" class="sidebar__link">
+          <svg class="sidebar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          О факультете
+        </a>
+      </li>
+      <li>
+        <a href="achievements.html" class="sidebar__link">
+          <svg class="sidebar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5C7 4 7 7 7 7"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5C17 4 17 7 17 7"/><path d="M4 22h16"/><path d="M10 22V8a5 5 0 0 1 4 0v14"/><path d="M8 9h8l1 13H7z"/></svg>
+          Достижения
+        </a>
+      </li>
+      <li>
+        <a href="reviews.html" class="sidebar__link">
+          <svg class="sidebar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          Отзывы
+        </a>
+      </li>
+      <li>
+        <a href="admission.html" class="sidebar__link">
+          <svg class="sidebar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          Этапы поступления
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero" id="hero">
+    <div class="container hero__inner">
+      <h1 class="hero__title">Твоё будущее<br>начинается здесь</h1>
+      <p class="hero__subtitle">
+        Искусственный интеллект меняет мир прямо сейчас.
+        Стань тем, кто создаёт технологии завтрашнего дня — начни с лучшего факультета страны.
+      </p>
+      <div class="hero__actions">
+        <a href="#apply" class="btn btn--primary btn--lg">Узнать шансы поступления</a>
+        <a href="#programs" class="btn btn--outline btn--lg">Программы обучения</a>
+      </div>
+      <div class="hero__decoration" aria-hidden="true">
+        <span class="hero__circle hero__circle--1"></span>
+        <span class="hero__circle hero__circle--2"></span>
+        <span class="hero__circle hero__circle--3"></span>
+        <div class="hero__blob hero__blob--1"></div>
+        <div class="hero__blob hero__blob--2"></div>
+        <div class="hero__blob hero__blob--3"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ABOUT / ACHIEVEMENTS ===== -->
+  <section class="section achievements" id="about">
+    <div class="container">
+      <h2 class="section__title" id="achievements">О факультете</h2>
+      <p class="section__subtitle">Цифры, которые говорят сами за себя</p>
+
+      <!-- Данные для карточек позже будут подтягиваться динамически через API -->
+      <div class="cards">
+        <div class="card">
+          <div class="card__icon">🔬</div>
+          <div class="card__number">10+</div>
+          <div class="card__text">Лабораторий с оборудованием мирового уровня</div>
+        </div>
+        <div class="card">
+          <div class="card__icon">🚀</div>
+          <div class="card__number">1 курс</div>
+          <div class="card__text">Стажировки в IT-компаниях уже с первого курса</div>
+        </div>
+        <div class="card">
+          <div class="card__icon">🏆</div>
+          <div class="card__number">95%</div>
+          <div class="card__text">Выпускников трудоустраиваются в первый год</div>
+        </div>
+        <div class="card">
+          <div class="card__icon">🤖</div>
+          <div class="card__number">50+</div>
+          <div class="card__text">Проектов с реальными заказчиками ежегодно</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PROGRAMS ===== -->
+  <section class="section programs" id="programs">
+    <div class="container">
+      <h2 class="section__title">Программы обучения</h2>
+      <p class="section__subtitle">Выбери свой путь в мире ИИ</p>
+
+      <div class="cards cards--programs">
+        <div class="card card--program">
+          <div class="card__badge">Бакалавриат</div>
+          <h3 class="card__heading">Искусственный интеллект и машинное обучение</h3>
+          <p class="card__desc">4 года обучения. Python, нейросети, компьютерное зрение, NLP и работа с большими данными.</p>
+          <a href="#apply" class="btn btn--primary btn--sm">Подробнее</a>
+        </div>
+        <div class="card card--program">
+          <div class="card__badge">Бакалавриат</div>
+          <h3 class="card__heading">Робототехника и интеллектуальные системы</h3>
+          <p class="card__desc">4 года обучения. Автономные системы, сенсоры, управление роботами и встраиваемый ИИ.</p>
+          <a href="#apply" class="btn btn--primary btn--sm">Подробнее</a>
+        </div>
+        <div class="card card--program">
+          <div class="card__badge">Магистратура</div>
+          <h3 class="card__heading">Генеративный ИИ и большие языковые модели</h3>
+          <p class="card__desc">2 года обучения. Архитектуры трансформеров, RLHF, деплой моделей и этика ИИ.</p>
+          <a href="#apply" class="btn btn--primary btn--sm">Подробнее</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== REVIEWS ===== -->
+  <section class="section reviews" id="reviews">
+    <div class="container">
+      <h2 class="section__title">Отзывы студентов</h2>
+      <p class="section__subtitle">Те, кто уже выбрал будущее</p>
+
+      <div class="reviews__grid">
+        <div class="review">
+          <div class="review__header">
+            <div class="review__avatar">АК</div>
+            <div>
+              <div class="review__name">Анна Климова</div>
+              <div class="review__role">3 курс, ИИ и МО</div>
+            </div>
+          </div>
+          <p class="review__text">
+            «Здесь не просто учат программировать — тебя реально погружают в науку.
+            На втором курсе я уже работала над проектом с Яндексом. Это лучшее решение в моей жизни.»
+          </p>
+        </div>
+
+        <div class="review">
+          <div class="review__header">
+            <div class="review__avatar">ДМ</div>
+            <div>
+              <div class="review__name">Дмитрий Морозов</div>
+              <div class="review__role">Выпускник 2025</div>
+            </div>
+          </div>
+          <p class="review__text">
+            «Факультет дал мне не только хард-скиллы, но и комьюнити.
+            Хакатоны, митапы, стартап-инкубатор — всё это здесь. Сейчас работаю ML-инженером в Сбере.»
+          </p>
+        </div>
+
+        <div class="review">
+          <div class="review__header">
+            <div class="review__avatar">ЕС</div>
+            <div>
+              <div class="review__name">Елена Сидорова</div>
+              <div class="review__role">2 курс, Робототехника</div>
+            </div>
+          </div>
+          <p class="review__text">
+            «Я думала, что ИИ — это что-то далёкое и сложное.
+            А тут уже на первом курсе мы собирали роботов и учили их распознавать объекты. Это было нереально круто!»
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== APPLY CTA ===== -->
+  <section class="section apply" id="apply">
+    <div class="container apply__inner">
+      <h2 class="section__title section__title--light">Готов сделать первый шаг?</h2>
+      <p class="section__subtitle section__subtitle--light">
+        Оставь заявку, и мы расскажем всё о поступлении — баллы ЕГЭ, олимпиады и бюджетные места.
+      </p>
+      <a href="#" class="btn btn--white btn--lg" onclick="openChat(); return false;">Оставить заявку</a>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__col">
+        <div class="footer__brand">
+          <span class="header__logo-icon">AI</span>
+          <span class="header__logo-text">Факультет ИИ</span>
+        </div>
+        <p class="footer__copy">&copy; 2026 Факультет Искусственного Интеллекта</p>
+      </div>
+
+      <div class="footer__col">
+        <h4 class="footer__heading">Приёмная комиссия</h4>
+        <p>+7 (495) 123-45-67</p>
+        <p>admission@ai-faculty.ru</p>
+        <p>Пн–Пт, 09:00–18:00</p>
+      </div>
+
+      <div class="footer__col">
+        <h4 class="footer__heading">Адрес</h4>
+        <p>г. Москва, ул. Примерная, д. 1</p>
+        <p>Корпус «Нейрон», этаж 3</p>
+      </div>
+
+      <div class="footer__col">
+        <h4 class="footer__heading">Соцсети</h4>
+        <div class="footer__socials">
+          <a href="#" class="footer__social" aria-label="Telegram">TG</a>
+          <a href="#" class="footer__social" aria-label="VKontakte">VK</a>
+          <a href="#" class="footer__social" aria-label="YouTube">YT</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== CHAT WIDGET (Алиса) ===== -->
+  <div class="chat-widget" id="chatWidget">
+    <button class="chat-widget__toggle" id="chatToggle" aria-label="Открыть чат с ИИ-помощником">
+      <svg class="chat-widget__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+      </svg>
+      <svg class="chat-widget__close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+
+    <div class="chat-widget__window" id="chatWindow">
+      <div class="chat-widget__header">
+        <div class="chat-widget__status"></div>
+        <span>Алиса — твой ИИ-помощник</span>
+        <button class="chat-widget__close-btn" onclick="closeChat()" aria-label="Закрыть чат">&times;</button>
+      </div>
+      <div class="chat-widget__messages" id="chatMessages">
+        <div class="chat-widget__msg chat-widget__msg--bot">
+          Привет! 👋 Я Алиса, виртуальный помощник факультета ИИ.
+          Задай мне любой вопрос о поступлении, программах или студенческой жизни!
+        </div>
+      </div>
+      <div class="chat-widget__input-area">
+        <input type="text" id="chatInput" class="chat-widget__input" placeholder="Напиши сообщение...">
+        <button class="chat-widget__send" id="chatSend" aria-label="Отправить">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
