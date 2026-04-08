@@ -14,10 +14,20 @@
   <!-- ===== HEADER ===== -->
   <header class="header" id="header">
     <div class="container header__inner">
-      <a href="#" class="header__logo">
+      <a href="index.html" class="header__logo">
         <span class="header__logo-icon">AI</span>
         <span class="header__logo-text">Факультет ИИ</span>
       </a>
+
+      <!-- Горизонтальное меню для десктопа (видно при ≥ 1024px) -->
+      <nav class="header__nav" aria-label="Основная навигация">
+        <ul class="header__nav-list">
+          <li><a href="about.html" class="header__nav-link">О факультете</a></li>
+          <li><a href="achievements.html" class="header__nav-link">Достижения</a></li>
+          <li><a href="reviews.html" class="header__nav-link">Отзывы</a></li>
+          <li><a href="admission.html" class="header__nav-link">Поступление</a></li>
+        </ul>
+      </nav>
 
       <button class="btn btn--primary header__cta" onclick="openChat()">Задать вопрос ИИ</button>
 

@@ -195,7 +195,61 @@ button {
   color: var(--gray-800);
 }
 
-/* Бургер: 44×44 для удобного нажатия пальцем */
+/* ===== HEADER NAV (горизонтальное меню для десктопа) =====
+   На мобиле скрыто (показываем бургер).
+   На десктопе появляется в строке через @media (min-width: 1024px) ниже */
+.header__nav {
+  display: none;
+}
+
+.header__nav-list {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  list-style: none;
+}
+
+.header__nav-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 4px;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--gray-600);
+  transition: color var(--transition);
+}
+
+/* Подчёркивание-индикатор */
+.header__nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--red), var(--accent-teal));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--transition);
+}
+
+.header__nav-link:hover {
+  color: var(--red);
+}
+
+.header__nav-link:hover::after,
+.header__nav-link[aria-current="page"]::after {
+  transform: scaleX(1);
+}
+
+.header__nav-link[aria-current="page"] {
+  color: var(--red);
+  font-weight: 600;
+}
+
+/* Бургер: 44×44 для удобного нажатия пальцем (только на мобиле/планшете) */
 .header__burger {
   display: flex;
   flex-direction: column;
@@ -1027,6 +1081,18 @@ button {
 
 /* ---------- ≥ 1024px : десктоп ---------- */
 @media (min-width: 1024px) {
+  /* На десктопе показываем горизонтальное меню в шапке
+     и прячем бургер — это привычный UX-паттерн */
+  .header__nav {
+    display: block;
+    margin-left: auto;
+    margin-right: 32px;
+  }
+
+  .header__burger {
+    display: none;
+  }
+
   .hero {
     padding: 120px 0 100px;
   }
