@@ -134,22 +134,60 @@ document.querySelectorAll('.cards, .cards--programs, .reviews__grid').forEach((g
   document.body.appendChild(fab);
 })();
 
-// ===== TILE VISIBILITY LOADER =====
-// Читает из localStorage настройки, сделанные в CMS (раздел «Страницы сайта»),
-// и скрывает плашки с data-tile, которые админ отключил на текущей странице.
-(function applyTileVisibility() {
+// ===== TILE VISIBILITY + CONTENT LOADER =====
+// Читает из localStorage настройки, сделанные в CMS (раздел «Страницы сайта»):
+//   - fii_tile_visibility — скрывает плашки, которые админ отключил;
+//   - fii_tile_content    — подставляет изменённый текст для полей плашек.
+// Описание страниц и плашек берётся из window.PAGE_REGISTRY (tile-registry.js).
+(function applyTileOverrides() {
   const pageKey = document.body && document.body.dataset ? document.body.dataset.page : null;
   if (!pageKey) return;
-  let state;
-  try { state = JSON.parse(localStorage.getItem('fii_tile_visibility')) || {}; }
-  catch { state = {}; }
-  const pageState = state[pageKey];
-  if (!pageState) return;
-  document.querySelectorAll('[data-tile]').forEach((el) => {
-    const tileId = el.dataset.tile;
-    if (pageState[tileId] === false) {
-      el.setAttribute('hidden', '');
-      el.style.display = 'none';
+
+  const readJSON = (key) => {
+    try { return JSON.parse(localStorage.getItem(key)) || {}; }
+    catch { return {}; }
+  };
+
+  const visibilityState = readJSON('fii_tile_visibility')[pageKey] || {};
+  const contentState    = readJSON('fii_tile_content')[pageKey] || {};
+
+  // Строим карту id плашки → описание полей (из общего реестра)
+  const registry = window.PAGE_REGISTRY || [];
+  const pageDef  = registry.find(p => p.key === pageKey);
+  const fieldMap = {}; // { tileId: { fieldId: { selector, type } } }
+  if (pageDef) {
+    pageDef.tiles.forEach(tile => {
+      fieldMap[tile.id] = {};
+      (tile.fields || []).forEach(f => {
+        fieldMap[tile.id][f.id] = { selector: f.selector, type: f.type };
+      });
+    });
+  }
+
+  document.querySelectorAll('[data-tile]').forEach((tileEl) => {
+    const tileId = tileEl.dataset.tile;
+
+    // 1) Видимость
+    if (visibilityState[tileId] === false) {
+      tileEl.setAttribute('hidden', '');
+      tileEl.style.display = 'none';
+      return; // скрытую плашку переписывать не нужно
     }
+
+    // 2) Контент: подстановка значений полей
+    const overrides = contentState[tileId];
+    if (!overrides || !fieldMap[tileId]) return;
+
+    Object.entries(overrides).forEach(([fieldId, value]) => {
+      const descriptor = fieldMap[tileId][fieldId];
+      if (!descriptor) return;
+      const target = tileEl.querySelector(descriptor.selector);
+      if (!target) return;
+      if (descriptor.type === 'html') {
+        target.innerHTML = value;
+      } else {
+        target.textContent = value;
+      }
+    });
   });
 })();

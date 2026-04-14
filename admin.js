@@ -33,83 +33,19 @@
   };
 
   // ----- PAGE / TILE REGISTRY ---------------------------------------
-  // Определяет структуру «страница → список плашек», которая отображается
-  // в разделе «Страницы сайта» и используется публичной частью сайта для
-  // скрытия/показа элементов по data-tile.
-  const PAGE_REGISTRY = [
-    {
-      key: 'index',
-      title: 'Главная',
-      file: 'index.html',
-      tiles: [
-        { id: 'hero',            name: 'Hero-блок (заголовок + CTA)' },
-        { id: 'about-section',   name: 'Секция «О факультете» (целиком)' },
-        { id: 'about-card-1',    name: 'Карточка · 10+ лабораторий' },
-        { id: 'about-card-2',    name: 'Карточка · Стажировки с 1 курса' },
-        { id: 'about-card-3',    name: 'Карточка · 95% трудоустройства' },
-        { id: 'about-card-4',    name: 'Карточка · 50+ проектов' },
-        { id: 'programs-section',name: 'Секция «Программы обучения» (целиком)' },
-        { id: 'program-1',       name: 'Программа · ИИ и машинное обучение' },
-        { id: 'program-2',       name: 'Программа · Робототехника' },
-        { id: 'program-3',       name: 'Программа · Генеративный ИИ (магистратура)' },
-        { id: 'reviews-section', name: 'Секция «Отзывы студентов» (целиком)' },
-        { id: 'review-1',        name: 'Отзыв · Анна Климова' },
-        { id: 'review-2',        name: 'Отзыв · Дмитрий Морозов' },
-        { id: 'review-3',        name: 'Отзыв · Елена Сидорова' },
-        { id: 'apply-section',   name: 'CTA «Готов сделать первый шаг?»' },
-      ],
-    },
-    {
-      key: 'about',
-      title: 'О факультете',
-      file: 'about.html',
-      tiles: [
-        { id: 'about-hero',            name: 'Hero-блок' },
-        { id: 'infrastructure-section',name: 'Секция «Инфраструктура и технологии»' },
-        { id: 'infra-card-1',          name: 'Карточка · Современное оборудование' },
-        { id: 'infra-card-2',          name: 'Карточка · Лаборатория ИИ' },
-        { id: 'infra-card-3',          name: 'Карточка · Суперкомпьютер РУДН' },
-        { id: 'partners-section',      name: 'Секция «Партнёры и практика»' },
-        { id: 'partner-sber',          name: 'Партнёр · Сбер' },
-        { id: 'partner-alfa',          name: 'Партнёр · Альфа-Банк' },
-        { id: 'career-cta',            name: 'CTA «Карьера ещё до диплома»' },
-      ],
-    },
-    {
-      key: 'achievements',
-      title: 'Достижения',
-      file: 'achievements.html',
-      tiles: [
-        { id: 'stub-content', name: 'Основной контент страницы' },
-      ],
-    },
-    {
-      key: 'news',
-      title: 'Новости',
-      file: 'news.html',
-      tiles: [
-        { id: 'stub-content', name: 'Основной контент страницы' },
-      ],
-    },
-    {
-      key: 'reviews',
-      title: 'Отзывы',
-      file: 'reviews.html',
-      tiles: [
-        { id: 'stub-content', name: 'Основной контент страницы' },
-      ],
-    },
-    {
-      key: 'admission',
-      title: 'Поступление',
-      file: 'admission.html',
-      tiles: [
-        { id: 'stub-content', name: 'Основной контент страницы' },
-      ],
-    },
-  ];
+  // Общий реестр страниц и плашек вынесен в tile-registry.js, чтобы его
+  // могли использовать и админ-панель, и публичные страницы сайта.
+  const PAGE_REGISTRY = window.PAGE_REGISTRY || [];
+
+  // Структура реестра для справки (реальное определение — в tile-registry.js):
+  //   { key, title, file, tiles: [
+  //       { id, name, fields: [
+  //           { id, label, selector, type: 'text'|'html'|'multiline', default }
+  //       ]}
+  //   ]}
 
   const VISIBILITY_KEY = 'fii_tile_visibility';
+  const CONTENT_KEY    = 'fii_tile_content';
 
   // visibility state: { [pageKey]: { [tileId]: boolean } }; true/undefined = видимо, false = скрыто
   const loadVisibility = () => {
@@ -131,28 +67,106 @@
     saveVisibility(state);
   };
 
+  // content overrides: { [pageKey]: { [tileId]: { [fieldId]: string } } }
+  const loadContent = () => {
+    try { return JSON.parse(localStorage.getItem(CONTENT_KEY)) || {}; }
+    catch { return {}; }
+  };
+  const saveContent = (state) => {
+    localStorage.setItem(CONTENT_KEY, JSON.stringify(state));
+  };
+  const getFieldValue = (state, pageKey, tileId, fieldId, fallback) => {
+    const v = state?.[pageKey]?.[tileId]?.[fieldId];
+    return v !== undefined ? v : fallback;
+  };
+  const setFieldValue = (pageKey, tileId, fieldId, value) => {
+    const state = loadContent();
+    if (!state[pageKey]) state[pageKey] = {};
+    if (!state[pageKey][tileId]) state[pageKey][tileId] = {};
+    state[pageKey][tileId][fieldId] = value;
+    saveContent(state);
+  };
+  const clearTileContent = (pageKey, tileId) => {
+    const state = loadContent();
+    if (state[pageKey] && state[pageKey][tileId]) {
+      delete state[pageKey][tileId];
+      if (!Object.keys(state[pageKey]).length) delete state[pageKey];
+      saveContent(state);
+    }
+  };
+  const isTileEdited = (state, pageKey, tileId) => {
+    return !!(state[pageKey] && state[pageKey][tileId] && Object.keys(state[pageKey][tileId]).length);
+  };
+
   // ----- Render pages tree ------------------------------------------
+  const renderFieldControl = (pageKey, tileId, field, value) => {
+    const name = `${pageKey}__${tileId}__${field.id}`;
+    const valueAttr = escapeHtml(value);
+    if (field.type === 'text') {
+      return `
+        <label class="field-editor">
+          <span class="field-editor__label">${escapeHtml(field.label)}</span>
+          <input type="text" class="field-editor__input" name="${name}"
+                 data-field="${field.id}" value="${valueAttr}">
+        </label>`;
+    }
+    // 'multiline' или 'html'
+    const hint = field.type === 'html'
+      ? '<span class="field-editor__hint">Поддерживается HTML (например, &lt;br&gt;, &lt;strong&gt;)</span>'
+      : '';
+    return `
+      <label class="field-editor">
+        <span class="field-editor__label">${escapeHtml(field.label)}</span>
+        <textarea class="field-editor__input field-editor__input--area" rows="3"
+                  name="${name}" data-field="${field.id}"
+                  data-type="${field.type}">${valueAttr}</textarea>
+        ${hint}
+      </label>`;
+  };
+
   const renderPagesTree = () => {
     const tree = $('#pagesTree');
     if (!tree) return;
-    const state = loadVisibility();
+    const visState  = loadVisibility();
+    const contState = loadContent();
     tree.innerHTML = PAGE_REGISTRY.map(page => {
-      const hiddenCount = page.tiles.filter(t => !isTileVisible(state, page.key, t.id)).length;
+      const hiddenCount = page.tiles.filter(t => !isTileVisible(visState, page.key, t.id)).length;
       const counterText = hiddenCount > 0
         ? `${page.tiles.length - hiddenCount} / ${page.tiles.length} активно`
         : `${page.tiles.length} плашек`;
       const rows = page.tiles.map(tile => {
-        const visible = isTileVisible(state, page.key, tile.id);
+        const visible = isTileVisible(visState, page.key, tile.id);
+        const edited  = isTileEdited(contState, page.key, tile.id);
+        const fieldsHtml = (tile.fields || []).map(field => {
+          const current = getFieldValue(contState, page.key, tile.id, field.id, field.default);
+          return renderFieldControl(page.key, tile.id, field, current);
+        }).join('');
         return `
-          <li class="tile-row">
-            <div class="tile-row__label">
-              <span class="tile-row__name">${escapeHtml(tile.name)}</span>
-              <span class="tile-row__id">data-tile="${escapeHtml(tile.id)}"</span>
+          <li class="tile-row" data-tile-id="${escapeHtml(tile.id)}">
+            <div class="tile-row__main">
+              <button class="tile-row__expand" type="button" aria-expanded="false" aria-label="Редактировать текст">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
+              <div class="tile-row__label">
+                <span class="tile-row__name">
+                  ${escapeHtml(tile.name)}
+                  ${edited ? '<span class="tile-row__badge">изменено</span>' : ''}
+                </span>
+                <span class="tile-row__id">data-tile="${escapeHtml(tile.id)}"</span>
+              </div>
+              <label class="switch" title="${visible ? 'Скрыть' : 'Показать'}">
+                <input type="checkbox" data-page="${page.key}" data-tile="${tile.id}" ${visible ? 'checked' : ''}>
+                <span class="switch__slider"></span>
+              </label>
             </div>
-            <label class="switch" title="${visible ? 'Скрыть' : 'Показать'}">
-              <input type="checkbox" data-page="${page.key}" data-tile="${tile.id}" ${visible ? 'checked' : ''}>
-              <span class="switch__slider"></span>
-            </label>
+            ${fieldsHtml ? `
+              <form class="tile-row__editor" data-page="${page.key}" data-tile="${tile.id}">
+                <div class="tile-row__fields">${fieldsHtml}</div>
+                <div class="tile-row__actions">
+                  <button type="button" class="btn btn--ghost tile-row__reset">Сбросить к исходному</button>
+                  <button type="submit" class="btn btn--primary">Сохранить текст</button>
+                </div>
+              </form>` : ''}
           </li>`;
       }).join('');
       return `
@@ -201,13 +215,67 @@
   if (pagesTree) {
     // Аккордеон: разворачивание/сворачивание страницы
     pagesTree.addEventListener('click', (e) => {
+      // Клик по заголовку страницы
       const head = e.target.closest('.page-item__head');
-      if (!head) return;
-      // Не разворачивать, если кликнули по переключателю
-      if (e.target.closest('.switch')) return;
-      const item = head.closest('.page-item');
-      const wasOpen = item.classList.toggle('is-open');
-      head.setAttribute('aria-expanded', wasOpen ? 'true' : 'false');
+      if (head && !e.target.closest('.switch')) {
+        const item = head.closest('.page-item');
+        const wasOpen = item.classList.toggle('is-open');
+        head.setAttribute('aria-expanded', wasOpen ? 'true' : 'false');
+        return;
+      }
+      // Клик по кнопке «развернуть редактор плашки»
+      const expandBtn = e.target.closest('.tile-row__expand');
+      if (expandBtn) {
+        const row = expandBtn.closest('.tile-row');
+        const isOpen = row.classList.toggle('is-editing');
+        expandBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        return;
+      }
+      // Сброс текста плашки к исходному
+      const resetTileBtn = e.target.closest('.tile-row__reset');
+      if (resetTileBtn) {
+        const form = resetTileBtn.closest('form.tile-row__editor');
+        if (!form) return;
+        const pageKey = form.dataset.page;
+        const tileId  = form.dataset.tile;
+        if (!confirm('Вернуть исходный текст этой плашки?')) return;
+        clearTileContent(pageKey, tileId);
+        const pageDef = PAGE_REGISTRY.find(p => p.key === pageKey);
+        const tileDef = pageDef && pageDef.tiles.find(t => t.id === tileId);
+        if (tileDef) {
+          (tileDef.fields || []).forEach(field => {
+            const input = form.querySelector(`[data-field="${field.id}"]`);
+            if (input) input.value = field.default;
+          });
+        }
+        const row = form.closest('.tile-row');
+        const badge = row && row.querySelector('.tile-row__badge');
+        if (badge) badge.remove();
+        showToast('Текст плашки сброшен к исходному');
+      }
+    });
+
+    // Сохранение формы редактора плашки
+    pagesTree.addEventListener('submit', (e) => {
+      const form = e.target.closest('form.tile-row__editor');
+      if (!form) return;
+      e.preventDefault();
+      const pageKey = form.dataset.page;
+      const tileId  = form.dataset.tile;
+      form.querySelectorAll('[data-field]').forEach(input => {
+        const fieldId = input.dataset.field;
+        setFieldValue(pageKey, tileId, fieldId, input.value);
+      });
+      // Отметка «изменено»
+      const row = form.closest('.tile-row');
+      const nameEl = row && row.querySelector('.tile-row__name');
+      if (nameEl && !nameEl.querySelector('.tile-row__badge')) {
+        const badge = document.createElement('span');
+        badge.className = 'tile-row__badge';
+        badge.textContent = 'изменено';
+        nameEl.appendChild(badge);
+      }
+      showToast('Текст плашки сохранён ✓');
     });
 
     // Переключение видимости плашки
@@ -236,14 +304,15 @@
     });
   }
 
-  // Сброс всех настроек видимости
+  // Сброс всех настроек (видимость + тексты)
   const resetBtn = $('#pagesReset');
   if (resetBtn) {
     resetBtn.addEventListener('click', () => {
-      if (!confirm('Показать все плашки на всех страницах?')) return;
+      if (!confirm('Сбросить все изменения: показать все плашки и вернуть исходные тексты?')) return;
       localStorage.removeItem(VISIBILITY_KEY);
+      localStorage.removeItem(CONTENT_KEY);
       renderPagesTree();
-      showToast('Видимость плашек сброшена');
+      showToast('Все настройки сброшены');
     });
   }
 
