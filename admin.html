@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CMS · Факультет ИИ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body class="admin-body">
+
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="admin-sidebar">
+    <div class="admin-sidebar__brand">
+      <span class="admin-sidebar__logo">AI</span>
+      <div class="admin-sidebar__brand-text">
+        <span class="admin-sidebar__title">Факультет ИИ</span>
+        <span class="admin-sidebar__subtitle">Панель управления</span>
+      </div>
+    </div>
+
+    <nav class="admin-nav" aria-label="Разделы CMS">
+      <button class="admin-nav__link is-active" data-section="news">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8z"/></svg>
+        Новости
+      </button>
+      <button class="admin-nav__link" data-section="photos">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/></svg>
+        Фотографии
+      </button>
+      <button class="admin-nav__link" data-section="achievements">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5C7 4 7 7 7 7"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5C17 4 17 7 17 7"/><path d="M4 22h16"/><path d="M10 22V8a5 5 0 0 1 4 0v14"/><path d="M8 9h8l1 13H7z"/></svg>
+        Достижения
+      </button>
+      <button class="admin-nav__link" data-section="settings">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h.01A1.65 1.65 0 0 0 9 3.09V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h.01a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"/></svg>
+        Настройки сайта
+      </button>
+    </nav>
+
+    <div class="admin-sidebar__footer">
+      <div class="admin-user">
+        <div class="admin-user__avatar">АД</div>
+        <div class="admin-user__info">
+          <span class="admin-user__name">Администратор</span>
+          <span class="admin-user__role">CMS · v1.0</span>
+        </div>
+      </div>
+      <a href="index.html" class="admin-sidebar__exit">← На сайт</a>
+    </div>
+  </aside>
+
+  <!-- ===== MAIN ===== -->
+  <main class="admin-main">
+
+    <header class="admin-topbar">
+      <div>
+        <h1 class="admin-topbar__title" id="pageTitle">Новости</h1>
+        <p class="admin-topbar__subtitle" id="pageSubtitle">Управление публикациями факультета</p>
+      </div>
+      <div class="admin-topbar__actions">
+        <span class="admin-badge">Режим редактирования</span>
+      </div>
+    </header>
+
+    <!-- ========== NEWS SECTION ========== -->
+    <section class="admin-section is-active" data-section="news">
+      <div class="admin-card">
+        <div class="admin-card__head">
+          <div>
+            <h2 class="admin-card__title">Список новостей</h2>
+            <p class="admin-card__hint">Всего записей: <span id="newsCount">3</span></p>
+          </div>
+          <button class="btn btn--primary" id="openNewsModal">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Добавить новость
+          </button>
+        </div>
+
+        <div class="admin-table-wrap">
+          <table class="admin-table" id="newsTable">
+            <thead>
+              <tr>
+                <th>Заголовок</th>
+                <th>Дата</th>
+                <th>Статус</th>
+                <th class="admin-table__actions-col">Действия</th>
+              </tr>
+            </thead>
+            <tbody id="newsTbody">
+              <tr>
+                <td>Открыт набор на магистерскую программу 2026</td>
+                <td>12.04.2026</td>
+                <td><span class="status status--published">Опубликовано</span></td>
+                <td class="admin-table__actions">
+                  <button class="icon-btn" title="Редактировать">✎</button>
+                  <button class="icon-btn icon-btn--danger" title="Удалить">🗑</button>
+                </td>
+              </tr>
+              <tr>
+                <td>Студенты заняли 1 место на хакатоне AI-RUDN</td>
+                <td>03.04.2026</td>
+                <td><span class="status status--published">Опубликовано</span></td>
+                <td class="admin-table__actions">
+                  <button class="icon-btn" title="Редактировать">✎</button>
+                  <button class="icon-btn icon-btn--danger" title="Удалить">🗑</button>
+                </td>
+              </tr>
+              <tr>
+                <td>Анонс конференции «Нейросети в образовании»</td>
+                <td>28.03.2026</td>
+                <td><span class="status status--draft">Черновик</span></td>
+                <td class="admin-table__actions">
+                  <button class="icon-btn" title="Редактировать">✎</button>
+                  <button class="icon-btn icon-btn--danger" title="Удалить">🗑</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== PHOTOS SECTION ========== -->
+    <section class="admin-section" data-section="photos">
+      <div class="admin-card">
+        <div class="admin-card__head">
+          <div>
+            <h2 class="admin-card__title">Фотографии факультета</h2>
+            <p class="admin-card__hint">Перетащите файлы в область ниже или нажмите, чтобы выбрать</p>
+          </div>
+        </div>
+
+        <div class="dropzone" id="dropzone">
+          <input type="file" id="photoInput" accept="image/*" multiple hidden>
+          <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          <p class="dropzone__title">Перетащите фото сюда</p>
+          <p class="dropzone__hint">PNG, JPG, WebP · до 10 МБ</p>
+          <button class="btn btn--ghost" type="button" id="photoBrowse">Выбрать файлы</button>
+        </div>
+
+        <div class="photo-grid" id="photoGrid">
+          <figure class="photo-card">
+            <div class="photo-card__img" style="background:linear-gradient(135deg,#c53030,#742a2a)"></div>
+            <figcaption>
+              <span>аудитория_01.jpg</span>
+              <button class="icon-btn icon-btn--danger" title="Удалить">🗑</button>
+            </figcaption>
+          </figure>
+          <figure class="photo-card">
+            <div class="photo-card__img" style="background:linear-gradient(135deg,#4a5568,#1a202c)"></div>
+            <figcaption>
+              <span>лаборатория.jpg</span>
+              <button class="icon-btn icon-btn--danger" title="Удалить">🗑</button>
+            </figcaption>
+          </figure>
+          <figure class="photo-card">
+            <div class="photo-card__img" style="background:linear-gradient(135deg,#dd6b20,#9c4221)"></div>
+            <figcaption>
+              <span>студенты.jpg</span>
+              <button class="icon-btn icon-btn--danger" title="Удалить">🗑</button>
+            </figcaption>
+          </figure>
+          <figure class="photo-card">
+            <div class="photo-card__img" style="background:linear-gradient(135deg,#2b6cb0,#1a365d)"></div>
+            <figcaption>
+              <span>конференция.jpg</span>
+              <button class="icon-btn icon-btn--danger" title="Удалить">🗑</button>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== ACHIEVEMENTS SECTION ========== -->
+    <section class="admin-section" data-section="achievements">
+      <div class="admin-grid-2">
+        <div class="admin-card">
+          <div class="admin-card__head">
+            <div>
+              <h2 class="admin-card__title">Новое достижение</h2>
+              <p class="admin-card__hint">Заполните поля и сохраните карточку</p>
+            </div>
+          </div>
+
+          <form class="admin-form" id="achievementForm">
+            <label class="field">
+              <span class="field__label">Текст достижения</span>
+              <textarea class="field__input" rows="4" placeholder="1 место на международном хакатоне..." required></textarea>
+            </label>
+            <label class="field">
+              <span class="field__label">Дата</span>
+              <input type="date" class="field__input" required>
+            </label>
+            <label class="field">
+              <span class="field__label">Иконка / фото</span>
+              <input type="file" class="field__input field__input--file" accept="image/*">
+            </label>
+            <div class="admin-form__actions">
+              <button type="reset" class="btn btn--ghost">Очистить</button>
+              <button type="submit" class="btn btn--primary">Сохранить</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="admin-card">
+          <div class="admin-card__head">
+            <div>
+              <h2 class="admin-card__title">Существующие карточки</h2>
+              <p class="admin-card__hint">Последние добавленные достижения</p>
+            </div>
+          </div>
+          <ul class="achievement-list" id="achievementList">
+            <li class="achievement-item">
+              <div class="achievement-item__icon">🏆</div>
+              <div class="achievement-item__body">
+                <strong>1 место — хакатон AI-RUDN 2026</strong>
+                <span>03.04.2026</span>
+              </div>
+              <button class="icon-btn icon-btn--danger" title="Удалить">🗑</button>
+            </li>
+            <li class="achievement-item">
+              <div class="achievement-item__icon">🎖</div>
+              <div class="achievement-item__body">
+                <strong>Грант Президента РФ для молодых учёных</strong>
+                <span>15.02.2026</span>
+              </div>
+              <button class="icon-btn icon-btn--danger" title="Удалить">🗑</button>
+            </li>
+            <li class="achievement-item">
+              <div class="achievement-item__icon">📜</div>
+              <div class="achievement-item__body">
+                <strong>Аккредитация программы «Data Science»</strong>
+                <span>20.01.2026</span>
+              </div>
+              <button class="icon-btn icon-btn--danger" title="Удалить">🗑</button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== SETTINGS SECTION ========== -->
+    <section class="admin-section" data-section="settings">
+      <div class="admin-card">
+        <div class="admin-card__head">
+          <div>
+            <h2 class="admin-card__title">Управление блоками сайта</h2>
+            <p class="admin-card__hint">Статические тексты и контакты факультета</p>
+          </div>
+        </div>
+
+        <form class="admin-form admin-form--wide" id="settingsForm">
+          <label class="field">
+            <span class="field__label">Приветственный текст (главная)</span>
+            <textarea class="field__input" rows="3">Добро пожаловать на Факультет Искусственного Интеллекта РУДН — место, где технологии встречаются с наукой.</textarea>
+          </label>
+
+          <div class="field-row">
+            <label class="field">
+              <span class="field__label">Контактный телефон</span>
+              <input type="tel" class="field__input" value="+7 (495) 123-45-67">
+            </label>
+            <label class="field">
+              <span class="field__label">E-mail</span>
+              <input type="email" class="field__input" value="ai@rudn.ru">
+            </label>
+          </div>
+
+          <label class="field">
+            <span class="field__label">Адрес</span>
+            <input type="text" class="field__input" value="Москва, ул. Миклухо-Маклая, 6">
+          </label>
+
+          <label class="field">
+            <span class="field__label">Текст блока «О факультете»</span>
+            <textarea class="field__input" rows="5">Факультет готовит специалистов в области машинного обучения, компьютерного зрения и обработки естественного языка.</textarea>
+          </label>
+
+          <div class="admin-form__actions">
+            <button type="reset" class="btn btn--ghost">Отменить</button>
+            <button type="submit" class="btn btn--primary">Сохранить изменения</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== MODAL: Add news ===== -->
+  <div class="modal" id="newsModal" aria-hidden="true">
+    <div class="modal__backdrop" data-close></div>
+    <div class="modal__dialog" role="dialog" aria-modal="true" aria-labelledby="newsModalTitle">
+      <header class="modal__head">
+        <h3 id="newsModalTitle">Новая новость</h3>
+        <button class="modal__close" data-close aria-label="Закрыть">&times;</button>
+      </header>
+      <form class="admin-form" id="newsForm">
+        <label class="field">
+          <span class="field__label">Заголовок</span>
+          <input type="text" class="field__input" name="title" placeholder="Введите заголовок" required>
+        </label>
+
+        <label class="field">
+          <span class="field__label">Текст новости</span>
+          <div class="wysiwyg">
+            <div class="wysiwyg__toolbar">
+              <button type="button" data-cmd="bold"><b>B</b></button>
+              <button type="button" data-cmd="italic"><i>I</i></button>
+              <button type="button" data-cmd="underline"><u>U</u></button>
+              <span class="wysiwyg__sep"></span>
+              <button type="button" data-cmd="insertUnorderedList">• List</button>
+              <button type="button" data-cmd="formatBlock" data-value="h3">H3</button>
+              <button type="button" data-cmd="createLink">Ссылка</button>
+            </div>
+            <div class="wysiwyg__area" contenteditable="true" data-placeholder="Начните писать..."></div>
+          </div>
+        </label>
+
+        <label class="field">
+          <span class="field__label">Обложка</span>
+          <input type="file" class="field__input field__input--file" name="cover" accept="image/*">
+        </label>
+
+        <div class="field-row">
+          <label class="field">
+            <span class="field__label">Дата публикации</span>
+            <input type="date" class="field__input" name="date" required>
+          </label>
+          <label class="field">
+            <span class="field__label">Статус</span>
+            <select class="field__input" name="status">
+              <option value="published">Опубликовано</option>
+              <option value="draft" selected>Черновик</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="admin-form__actions">
+          <button type="button" class="btn btn--ghost" data-close>Отмена</button>
+          <button type="submit" class="btn btn--primary">Опубликовать</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===== TOAST ===== -->
+  <div class="toast" id="toast" aria-live="polite"></div>
+
+  <script src="admin.js"></script>
+</body>
+</html>
