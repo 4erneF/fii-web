@@ -1203,3 +1203,70 @@ button {
     scroll-behavior: auto !important;
   }
 }
+
+/* ===== ADMIN FAB (floating "Панель администратора" button) ===== */
+.admin-fab {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  z-index: 900;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px 12px 16px;
+  border-radius: 999px;
+  background: #1A1A1A;
+  color: #fff;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 24px -8px rgba(10, 22, 40, 0.35),
+              0 4px 10px rgba(10, 22, 40, 0.15);
+  transition: transform 0.2s ease, box-shadow 0.25s ease, background 0.25s ease;
+}
+
+.admin-fab:hover {
+  background: #D32F2F;
+  transform: translateY(-2px);
+  box-shadow: 0 18px 32px -10px rgba(211, 47, 47, 0.55),
+              0 6px 14px rgba(211, 47, 47, 0.25);
+}
+
+.admin-fab:active {
+  transform: translateY(0);
+}
+
+.admin-fab__icon {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #D32F2F;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  flex-shrink: 0;
+  transition: background 0.25s ease;
+}
+
+.admin-fab:hover .admin-fab__icon {
+  background: #fff;
+  color: #D32F2F;
+}
+
+.admin-fab__icon svg {
+  width: 13px;
+  height: 13px;
+  stroke: currentColor;
+}
+
+@media (max-width: 640px) {
+  .admin-fab {
+    bottom: 16px;
+    left: 16px;
+    padding: 10px 16px 10px 12px;
+    font-size: 13px;
+  }
+  .admin-fab__icon { width: 20px; height: 20px; }
+}
