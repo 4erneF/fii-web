@@ -288,7 +288,264 @@ strong { color: var(--ink); font-weight: 600; }
   border-color: var(--accent);
 }
 
+/* ===== HEADER =====
+   Тонкий sticky-header на бумажном фоне, хэйрлайн-разделитель снизу,
+   приглушённые ссылки с красным подчёркиванием активного пункта. */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(250, 250, 247, 0.85);
+  backdrop-filter: saturate(140%) blur(10px);
+  -webkit-backdrop-filter: saturate(140%) blur(10px);
+  border-bottom: 1px solid var(--rule);
+}
+
+.header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  height: var(--header-h);
+}
+
+/* Логотип: квадратная метка «AI» + серифный текст названия */
+.header__logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+  color: var(--ink);
+}
+
+.header__logo-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  border-radius: var(--radius-sm);
+}
+
+.header__logo-text {
+  font-family: var(--font-serif);
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  line-height: 1;
+}
+
+.header__logo-subtitle {
+  display: none;
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted-2);
+  padding-left: 10px;
+  margin-left: 2px;
+  border-left: 1px solid var(--rule);
+}
+
+/* ===== HEADER NAV =====
+   Скрыто на мобиле, раскрывается на ≥ 1024px. */
+.header__nav {
+  display: none;
+  margin-left: auto;
+}
+
+.header__nav-list {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  list-style: none;
+}
+
+.header__nav-link {
+  position: relative;
+  display: inline-block;
+  padding: 6px 0;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--muted);
+  letter-spacing: 0.005em;
+  transition: color var(--t);
+}
+
+.header__nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 1px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--t);
+}
+
+.header__nav-link:hover {
+  color: var(--ink);
+}
+
+.header__nav-link:hover::after,
+.header__nav-link[aria-current="page"]::after {
+  transform: scaleX(1);
+}
+
+.header__nav-link[aria-current="page"] {
+  color: var(--ink);
+}
+
+/* CTA в шапке — скрыт на мобиле */
+.header__cta {
+  display: none;
+}
+
+/* ===== BURGER =====
+   44×44 touch target, три тонких штриха. */
+.header__burger {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  margin-right: -10px;
+  order: 10;
+}
+
+.header__burger span {
+  display: block;
+  width: 22px;
+  height: 1.5px;
+  background: var(--ink);
+  border-radius: 1px;
+  transition: transform var(--t), opacity var(--t);
+}
+
+.header__burger.is-active span:nth-child(1) {
+  transform: translateY(6.5px) rotate(45deg);
+}
+.header__burger.is-active span:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0.3);
+}
+.header__burger.is-active span:nth-child(3) {
+  transform: translateY(-6.5px) rotate(-45deg);
+}
+
+/* ===== SIDEBAR (mobile off-canvas) ===== */
+.sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(17, 17, 17, 0.35);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  opacity: 0;
+  visibility: hidden;
+  z-index: 110;
+  transition: opacity var(--t), visibility var(--t);
+}
+
+.sidebar-overlay.is-visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 120;
+  width: min(88vw, 360px);
+  height: 100%;
+  padding: 28px 28px 32px;
+  background: var(--paper);
+  border-right: 1px solid var(--rule);
+  transform: translateX(-100%);
+  transition: transform var(--t-slow);
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar.is-open {
+  transform: translateX(0);
+}
+
+.sidebar__close {
+  align-self: flex-end;
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  line-height: 1;
+  color: var(--muted);
+  margin: -8px -8px 24px;
+  transition: color var(--t);
+}
+
+.sidebar__close:hover {
+  color: var(--ink);
+}
+
+.sidebar__menu {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--rule);
+}
+
+.sidebar__link {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 2px;
+  font-family: var(--font-serif);
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  border-bottom: 1px solid var(--rule);
+  transition: color var(--t), padding-left var(--t);
+}
+
+.sidebar__link:hover {
+  color: var(--accent);
+  padding-left: 8px;
+}
+
+.sidebar__link[aria-current="page"] {
+  color: var(--accent);
+}
+
+.sidebar__icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  stroke: var(--muted-2);
+  transition: stroke var(--t);
+}
+
+.sidebar__link:hover .sidebar__icon,
+.sidebar__link[aria-current="page"] .sidebar__icon {
+  stroke: var(--accent);
+}
+
 /* =====================================================================
-   ↓ Следующие блоки (HEADER, HERO, SECTIONS, CARDS, REVIEWS, FOOTER,
-   CHAT, ADMIN-FAB, RESPONSIVE) добавляются в последующих чанках.
+   ↓ Следующие блоки (HERO, SECTIONS, CARDS, REVIEWS, FOOTER, CHAT,
+   ADMIN-FAB, RESPONSIVE) добавляются в последующих чанках.
    ===================================================================== */
