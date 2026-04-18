@@ -3,23 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Этапы поступления — Факультет ИИ</title>
+  <title>Поступление — Факультет искусственного интеллекта РУДН</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..600,0..100;1,9..144,300..600,0..100&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body data-page="admission">
 
   <header class="header" id="header">
     <div class="container header__inner">
-      <a href="index.html" class="header__logo">
+      <a href="index.html" class="header__logo" aria-label="Факультет ИИ РУДН — на главную">
         <span class="header__logo-icon">AI</span>
         <span class="header__logo-text">Факультет ИИ</span>
         <span class="header__logo-subtitle">РУДН</span>
       </a>
 
-      <!-- Горизонтальное меню для десктопа (видно при ≥ 1024px) -->
       <nav class="header__nav" aria-label="Основная навигация">
         <ul class="header__nav-list">
           <li><a href="about.html" class="header__nav-link">О факультете</a></li>
@@ -30,7 +29,7 @@
         </ul>
       </nav>
 
-      <button class="btn btn--primary header__cta" onclick="openChat()">Задать вопрос ИИ</button>
+      <button class="btn btn--outline btn--sm header__cta" onclick="openChat()">Задать вопрос</button>
 
       <button class="header__burger" id="burger" aria-label="Открыть меню">
         <span></span><span></span><span></span>
@@ -39,24 +38,60 @@
   </header>
 
   <div class="sidebar-overlay" id="sidebarOverlay"></div>
-  <nav class="sidebar" id="sidebar">
+  <nav class="sidebar" id="sidebar" aria-label="Мобильное меню">
     <button class="sidebar__close" id="sidebarClose" aria-label="Закрыть меню">&times;</button>
     <ul class="sidebar__menu">
-      <li><a href="about.html" class="sidebar__link"><svg class="sidebar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>О факультете</a></li>
-      <li><a href="achievements.html" class="sidebar__link"><svg class="sidebar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5C7 4 7 7 7 7"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5C17 4 17 7 17 7"/><path d="M4 22h16"/><path d="M10 22V8a5 5 0 0 1 4 0v14"/><path d="M8 9h8l1 13H7z"/></svg>Достижения</a></li>
-      <li><a href="news.html" class="sidebar__link"><svg class="sidebar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2m0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8z"/></svg>Новости</a></li>
-      <li><a href="reviews.html" class="sidebar__link"><svg class="sidebar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Отзывы</a></li>
-      <li><a href="admission.html" class="sidebar__link"><svg class="sidebar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Этапы поступления</a></li>
+      <li><a href="about.html" class="sidebar__link">О факультете</a></li>
+      <li><a href="achievements.html" class="sidebar__link">Достижения</a></li>
+      <li><a href="news.html" class="sidebar__link">Новости</a></li>
+      <li><a href="reviews.html" class="sidebar__link">Отзывы</a></li>
+      <li><a href="admission.html" class="sidebar__link" aria-current="page">Поступление</a></li>
     </ul>
   </nav>
 
   <section class="section stub-page" data-tile="stub-content">
     <div class="container stub-page__inner">
-      <h1 class="section__title">Этапы поступления</h1>
-      <p class="section__subtitle">Страница находится в разработке</p>
-      <a href="index.html" class="btn btn--primary btn--lg">Назад на главную</a>
+      <span class="section__eyebrow">Раздел в разработке</span>
+      <h1 class="section__title">Этапы поступления.</h1>
+      <p class="section__subtitle">
+        Подробный раздел с расписанием приёмной кампании, требованиями к баллам ЕГЭ,
+        списком олимпиад и количеством бюджетных мест находится в подготовке.
+      </p>
+      <a href="index.html" class="btn btn--primary btn--lg">Вернуться на главную <span class="arrow">→</span></a>
     </div>
   </section>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__col">
+        <div class="footer__brand">
+          <span class="header__logo-icon">AI</span>
+          <span class="header__logo-text">Факультет ИИ</span>
+        </div>
+        <p class="footer__university">Факультет искусственного интеллекта Российского университета дружбы народов</p>
+        <p class="footer__copy">&copy; 2026 РУДН · Все права защищены</p>
+      </div>
+      <div class="footer__col">
+        <h4 class="footer__heading">Приёмная комиссия</h4>
+        <p>+7 (495) 123-45-67</p>
+        <p>admission@ai-faculty.ru</p>
+        <p>Пн – Пт · 09:00 – 18:00</p>
+      </div>
+      <div class="footer__col">
+        <h4 class="footer__heading">Адрес</h4>
+        <p>Москва, ул. Примерная, 1</p>
+        <p>Корпус «Нейрон», 3 этаж</p>
+      </div>
+      <div class="footer__col">
+        <h4 class="footer__heading">Соцсети</h4>
+        <div class="footer__socials">
+          <a href="#" class="footer__social">Telegram</a>
+          <a href="#" class="footer__social">VK</a>
+          <a href="#" class="footer__social">YouTube</a>
+        </div>
+      </div>
+    </div>
+  </footer>
 
   <script src="tile-registry.js"></script>
   <script src="script.js"></script>
