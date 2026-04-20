@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+  <defs>
+    <filter id="rudn-glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="1.4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <g filter="url(#rudn-glow)" stroke="#14E0B1" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <ellipse cx="32" cy="34" rx="18" ry="13"/>
+    <path d="M14 34 H50"/>
+    <path d="M32 21 C24 27 24 41 32 47"/>
+    <path d="M32 21 C40 27 40 41 32 47"/>
+    <path d="M22 14 V36 C22 42 26 47 32 47 C38 47 42 42 42 36 V14"/>
+    <path d="M18 14 H26"/>
+    <path d="M38 14 H46"/>
+  </g>
+</svg>

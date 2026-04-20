@@ -344,6 +344,15 @@ strong { color: var(--ink); font-weight: 600; }
   box-shadow: 0 0 20px rgba(20, 224, 177, 0.35);
 }
 
+.header__logo-mark {
+  width: 34px;
+  height: 34px;
+  display: inline-block;
+  object-fit: contain;
+  filter: drop-shadow(0 0 8px rgba(20, 224, 177, 0.45));
+  flex-shrink: 0;
+}
+
 .header__logo-text {
   font-family: var(--font-serif);
   font-size: 18px;
