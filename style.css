@@ -1,38 +1,38 @@
 /* =====================================================================
    FACULTY OF AI — RUDN
-   Academic Minimalism · Редакторский минимализм
+   AI Tech Theme · Blue-Green
    ---------------------------------------------------------------------
-   Подход: mobile-first, нейтральная палитра + один акцент (РУДН-red),
-   редакторская типографика (Fraunces для display + Inter для UI),
-   тонкие линии, минимум декора, деликатные анимации.
+   Подход: mobile-first, футуристичная технологичная палитра (сине-зелёная),
+   tech-типографика (Orbitron для display + Space Grotesk для UI),
+   тонкий сетчатый фон, деликатные анимации.
    ===================================================================== */
 
 /* ===== DESIGN TOKENS ===== */
 :root {
-  /* — Нейтральная палитра (бумажная основа) — */
-  --paper:          #FAFAF7;
-  --surface:        #FFFFFF;
-  --surface-soft:   #F4F2EC;
-  --ink:            #111111;
-  --ink-soft:       #1F1F1F;
-  --muted:          #5B5B55;
-  --muted-2:        #8A8A82;
-  --rule:           #E5E3DC;
-  --divider:        #EFECE4;
+  /* — AI Tech палитра (сине-зелёная, тёмная) — */
+  --paper:          #051B23;
+  --surface:        #0A2A35;
+  --surface-soft:   #0E3B47;
+  --ink:            #E6FBF7;
+  --ink-soft:       #C9F2EB;
+  --muted:          #7FB8B3;
+  --muted-2:        #4E8A85;
+  --rule:           #164C57;
+  --divider:        #0F3C48;
 
-  /* — Один акцент (РУДН-red) — */
-  --accent:         #C8102E;
-  --accent-hover:   #9F0C24;
-  --accent-soft:    rgba(200, 16, 46, 0.08);
+  /* — Акцент (blue-green / teal) — */
+  --accent:         #14E0B1;
+  --accent-hover:   #0FB891;
+  --accent-soft:    rgba(20, 224, 177, 0.12);
 
   /* — Тёмная поверхность для CTA-блоков — */
-  --ink-dark:       #0E0E0E;
-  --ink-dark-soft:  #1A1A1A;
+  --ink-dark:       #02111A;
+  --ink-dark-soft:  #081F2B;
 
-  /* — Типографика — */
-  --font-serif:  'Fraunces', 'Playfair Display', Georgia, 'Times New Roman', serif;
-  --font-sans:   'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-mono:   ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  /* — Типографика (AI Tech) — */
+  --font-serif:  'Orbitron', 'Chakra Petch', 'Rajdhani', 'Space Grotesk', sans-serif;
+  --font-sans:   'Space Grotesk', 'Exo 2', 'Rajdhani', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono:   'JetBrains Mono', 'Share Tech Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
   /* — Размеры / ритм — */
   --radius:      4px;
@@ -70,7 +70,14 @@ body {
   font-size: 16px;
   line-height: 1.6;
   color: var(--ink);
-  background: var(--paper);
+  background-color: var(--paper);
+  background-image:
+    radial-gradient(ellipse at top left, rgba(20, 224, 177, 0.10), transparent 55%),
+    radial-gradient(ellipse at bottom right, rgba(14, 165, 233, 0.10), transparent 55%),
+    linear-gradient(rgba(20, 224, 177, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(20, 224, 177, 0.045) 1px, transparent 1px);
+  background-size: auto, auto, 48px 48px, 48px 48px;
+  background-attachment: fixed;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -110,12 +117,11 @@ input, textarea, select {
 .display,
 h1, h2, h3 {
   font-family: var(--font-serif);
-  font-weight: 400;
+  font-weight: 600;
   font-style: normal;
   color: var(--ink);
-  letter-spacing: -0.01em;
-  font-feature-settings: 'ss01';
-  font-variation-settings: 'opsz' 144, 'SOFT' 0;
+  letter-spacing: 0.005em;
+  text-transform: none;
 }
 
 h1 { font-size: clamp(40px, 6.5vw, 84px); line-height: 1.02; }
@@ -203,49 +209,53 @@ strong { color: var(--ink); font-weight: 600; }
 
 .btn:active { transform: translateY(1px); }
 
-/* Primary — чёрная заливка (уверенный, академичный) */
+/* Primary — светлая заливка на тёмном фоне */
 .btn--primary {
   background: var(--ink);
-  color: var(--paper);
+  color: var(--ink-dark);
   border-color: var(--ink);
 }
 .btn--primary:hover {
   background: var(--accent);
   border-color: var(--accent);
-  color: #fff;
+  color: var(--ink-dark);
+  box-shadow: 0 0 24px rgba(20, 224, 177, 0.45);
 }
 
-/* Accent — единственный красный CTA (для ключевых действий) */
+/* Accent — единственный blue-green CTA */
 .btn--accent {
   background: var(--accent);
-  color: #fff;
+  color: var(--ink-dark);
   border-color: var(--accent);
+  box-shadow: 0 0 0 1px rgba(20, 224, 177, 0.25), 0 0 24px rgba(20, 224, 177, 0.25);
 }
 .btn--accent:hover {
   background: var(--accent-hover);
   border-color: var(--accent-hover);
+  box-shadow: 0 0 0 1px rgba(20, 224, 177, 0.4), 0 0 32px rgba(20, 224, 177, 0.5);
 }
 
-/* Outline — тонкая рамка, нейтральная */
+/* Outline — тонкая рамка */
 .btn--outline {
   background: transparent;
   color: var(--ink);
   border-color: var(--rule);
 }
 .btn--outline:hover {
-  border-color: var(--ink);
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
 /* White — для тёмных CTA-секций */
 .btn--white {
-  background: var(--paper);
-  color: var(--ink);
-  border-color: var(--paper);
+  background: var(--ink);
+  color: var(--ink-dark);
+  border-color: var(--ink);
 }
 .btn--white:hover {
-  background: transparent;
-  color: var(--paper);
-  border-color: var(--paper);
+  background: var(--accent);
+  color: var(--ink-dark);
+  border-color: var(--accent);
 }
 
 .btn--lg {
@@ -295,9 +305,9 @@ strong { color: var(--ink); font-weight: 600; }
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(250, 250, 247, 0.85);
-  backdrop-filter: saturate(140%) blur(10px);
-  -webkit-backdrop-filter: saturate(140%) blur(10px);
+  background: rgba(5, 27, 35, 0.78);
+  backdrop-filter: saturate(160%) blur(14px);
+  -webkit-backdrop-filter: saturate(160%) blur(14px);
   border-bottom: 1px solid var(--rule);
 }
 
@@ -324,13 +334,14 @@ strong { color: var(--ink); font-weight: 600; }
   justify-content: center;
   width: 34px;
   height: 34px;
-  background: var(--ink);
-  color: var(--paper);
-  font-family: var(--font-sans);
+  background: linear-gradient(135deg, var(--accent) 0%, #0EA5E9 100%);
+  color: var(--ink-dark);
+  font-family: var(--font-serif);
   font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.05em;
+  font-weight: 700;
+  letter-spacing: 0.08em;
   border-radius: var(--radius-sm);
+  box-shadow: 0 0 20px rgba(20, 224, 177, 0.35);
 }
 
 .header__logo-text {
@@ -583,22 +594,23 @@ strong { color: var(--ink); font-weight: 600; }
 
 .hero__title {
   font-family: var(--font-serif);
-  font-weight: 400;
+  font-weight: 600;
   font-size: clamp(40px, 7.5vw, 96px);
-  line-height: 1.02;
-  letter-spacing: -0.02em;
+  line-height: 1.04;
+  letter-spacing: 0.005em;
   color: var(--ink);
   margin-bottom: 28px;
   text-wrap: balance;
 }
 
-/* Курсив-акцент для выделенного слова в заголовке */
+/* Акцент для выделенного слова в заголовке */
 .hero__title em,
 h1 em, h2 em, h3 em {
-  font-style: italic;
+  font-style: normal;
   font-family: var(--font-serif);
+  font-weight: 700;
   color: var(--accent);
-  font-variation-settings: 'opsz' 144, 'SOFT' 40;
+  text-shadow: 0 0 24px rgba(20, 224, 177, 0.35);
 }
 
 .hero__subtitle {
@@ -730,7 +742,7 @@ h1 em, h2 em, h3 em {
 
 .section__subtitle--light,
 .section--dark .section__subtitle {
-  color: rgba(250, 250, 247, 0.7);
+  color: rgba(230, 251, 247, 0.7);
 }
 
 /* Совместимость с текущей разметкой: центрированные старые заголовки */
@@ -945,8 +957,12 @@ h1 em, h2 em, h3 em {
 /* ===== APPLY CTA =====
    Чёрная секция с крупным serif-заголовком и одной красной кнопкой. */
 .apply {
-  background: var(--ink-dark);
-  color: var(--paper);
+  background:
+    radial-gradient(circle at 20% 10%, rgba(20, 224, 177, 0.22), transparent 55%),
+    radial-gradient(circle at 80% 90%, rgba(14, 165, 233, 0.22), transparent 55%),
+    var(--ink-dark);
+  color: var(--ink);
+  border-top: 1px solid var(--rule);
   border-bottom: none;
   padding: 96px 0;
 }
@@ -959,7 +975,7 @@ h1 em, h2 em, h3 em {
 
 .apply .section__title,
 .apply .section__title--light {
-  color: var(--paper);
+  color: var(--ink);
   font-family: var(--font-serif);
   text-align: left;
   max-width: 720px;
@@ -967,7 +983,7 @@ h1 em, h2 em, h3 em {
 
 .apply .section__subtitle,
 .apply .section__subtitle--light {
-  color: rgba(250, 250, 247, 0.7);
+  color: rgba(230, 251, 247, 0.7);
   text-align: left;
   max-width: 640px;
   margin-bottom: 16px;
@@ -1218,12 +1234,12 @@ h1 em, h2 em, h3 em {
 
 .chat-widget__close-btn {
   margin-left: auto;
-  color: rgba(250, 250, 247, 0.7);
+  color: rgba(230, 251, 247, 0.7);
   font-size: 22px;
   line-height: 1;
   transition: color var(--t);
 }
-.chat-widget__close-btn:hover { color: var(--paper); }
+.chat-widget__close-btn:hover { color: var(--ink); }
 
 .chat-widget__messages {
   flex-grow: 1;
@@ -1542,37 +1558,7 @@ h1 em, h2 em, h3 em {
   border-radius: var(--radius-sm);
 }
 
-/* ===== DARK THEME (system preference) ===== */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --paper:          #0E0E0E;
-    --surface:        #161616;
-    --surface-soft:   #1A1A1A;
-    --ink:            #F0EFE9;
-    --ink-soft:       #E0DED8;
-    --muted:          #A09E97;
-    --muted-2:        #6B6965;
-    --rule:           #2A2A2A;
-    --divider:        #222220;
-    --ink-dark:       #F0EFE9;
-    --ink-dark-soft:  #E0DED8;
-  }
-
-  .header {
-    background: rgba(14, 14, 14, 0.85);
-  }
-
-  .btn--primary {
-    background: var(--paper);
-    border-color: var(--paper);
-    color: var(--ink-dark);
-  }
-
-  .btn--outline {
-    border-color: var(--rule);
-    color: var(--ink);
-  }
-}
+/* ===== DARK THEME — тема всегда тёмная (AI Tech), системные настройки не переопределяют. ===== */
 
 @media (prefers-reduced-motion: reduce) {
   *,
