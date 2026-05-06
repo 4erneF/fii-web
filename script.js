@@ -135,6 +135,22 @@ document.querySelectorAll('.cards, .cards--programs, .reviews__grid').forEach((g
   });
 });
 
+// ===== CAROUSEL NAVIGATION =====
+(function initCarousels() {
+  const SCROLL_AMOUNT = 300;
+
+  document.querySelectorAll('.carousel-btn').forEach((btn) => {
+    const carouselId = btn.dataset.carousel;
+    const carousel = document.getElementById(carouselId + 'Carousel');
+    if (!carousel) return;
+
+    btn.addEventListener('click', () => {
+      const dir = btn.classList.contains('carousel-btn--prev') ? -1 : 1;
+      carousel.scrollBy({ left: dir * SCROLL_AMOUNT, behavior: 'smooth' });
+    });
+  });
+})();
+
 // ===== ADMIN PANEL FAB =====
 // Внедряем плавающую кнопку «Панель администратора» на всех страницах сайта.
 // В свёрнутом состоянии — небольшая шестерёнка, при наведении курсора — разворачивается.
