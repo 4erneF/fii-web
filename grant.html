@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Грант РНФ — Факультет искусственного интеллекта РУДН</title>
+  <meta name="description" content="Факультет ИИ РУДН получил грант РНФ на исследование генеративных мультимодальных моделей. Трёхлетняя программа, 12 млн рублей финансирования.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* ===== GRANT PAGE STYLES ===== */
+    .grant-hero {
+      padding: 96px 0 80px;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .grant-hero__inner {
+      max-width: 960px;
+    }
+
+    .grant-hero__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 28px;
+      font-family: var(--font-sans);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .grant-hero__badge::before {
+      content: '';
+      width: 28px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    .grant-hero__title {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: clamp(36px, 6vw, 78px);
+      line-height: 1.04;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 32px;
+      text-wrap: balance;
+    }
+
+    .grant-hero__title em {
+      font-style: normal;
+      color: var(--accent);
+    }
+
+    .grant-hero__lead {
+      font-family: var(--font-sans);
+      font-size: clamp(16px, 1.8vw, 19px);
+      line-height: 1.65;
+      color: var(--muted);
+      max-width: 720px;
+      margin-bottom: 48px;
+    }
+
+    .grant-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      padding-top: 32px;
+      border-top: 1px solid var(--rule);
+    }
+
+    .grant-meta__item {}
+
+    .grant-meta__label {
+      display: block;
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted-2);
+      margin-bottom: 6px;
+    }
+
+    .grant-meta__value {
+      font-family: var(--font-serif);
+      font-size: 22px;
+      color: var(--ink);
+      line-height: 1.1;
+    }
+
+    /* ===== SECTIONS ===== */
+    .grant-section {
+      padding: 80px 0;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .grant-section--alt {
+      background: var(--surface);
+    }
+
+    .grant-section__head {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      max-width: 960px;
+      margin-bottom: 56px;
+    }
+
+    .grant-section__eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-family: var(--font-sans);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .grant-section__eyebrow::before {
+      content: '';
+      width: 24px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    .grant-section__title {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: clamp(28px, 3.8vw, 48px);
+      line-height: 1.1;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+      margin: 0;
+      text-wrap: balance;
+    }
+
+    .grant-section__intro {
+      font-family: var(--font-sans);
+      font-size: clamp(15px, 1.6vw, 18px);
+      line-height: 1.65;
+      color: var(--muted);
+      max-width: 640px;
+      margin: 0;
+    }
+
+    /* ===== GOALS LIST ===== */
+    .goals-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0;
+      border-top: 1px solid var(--rule);
+    }
+
+    .goal-item {
+      display: flex;
+      gap: 24px;
+      padding: 32px 0;
+      border-bottom: 1px solid var(--rule);
+      transition: padding-left var(--t);
+    }
+
+    .goal-item:hover {
+      padding-left: 8px;
+    }
+
+    .goal-item__num {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      padding-top: 4px;
+      flex-shrink: 0;
+      min-width: 32px;
+    }
+
+    .goal-item__body {}
+
+    .goal-item__title {
+      font-family: var(--font-serif);
+      font-weight: 500;
+      font-size: clamp(18px, 2vw, 22px);
+      line-height: 1.25;
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+
+    .goal-item__text {
+      font-family: var(--font-sans);
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--muted);
+      margin: 0;
+      max-width: 600px;
+    }
+
+    /* ===== TEAM GRID ===== */
+    .team-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0;
+      border-top: 1px solid var(--rule);
+    }
+
+    .team-member {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      padding: 28px 0;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .team-member__avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: var(--surface-soft);
+      border: 1px solid var(--rule);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-serif);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .team-member__name {
+      font-family: var(--font-serif);
+      font-weight: 500;
+      font-size: 17px;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+
+    .team-member__rank {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+
+    .team-member__role {
+      font-family: var(--font-sans);
+      font-size: 13px;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    /* ===== MILESTONES ===== */
+    .milestones {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0;
+      border-top: 1px solid var(--rule);
+    }
+
+    .milestone {
+      display: flex;
+      gap: 24px;
+      padding: 28px 0;
+      border-bottom: 1px solid var(--rule);
+      align-items: flex-start;
+    }
+
+    .milestone__year {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted-2);
+      padding-top: 3px;
+      flex-shrink: 0;
+      min-width: 48px;
+    }
+
+    .milestone__dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+      margin-top: 7px;
+    }
+
+    .milestone__content {}
+
+    .milestone__title {
+      font-family: var(--font-serif);
+      font-weight: 500;
+      font-size: 17px;
+      color: var(--ink);
+      margin-bottom: 6px;
+    }
+
+    .milestone__desc {
+      font-family: var(--font-sans);
+      font-size: 14px;
+      color: var(--muted);
+      margin: 0;
+      line-height: 1.55;
+    }
+
+    /* ===== CTA ===== */
+    .grant-cta {
+      padding: 96px 0;
+      background:
+        radial-gradient(circle at 20% 10%, rgba(20, 224, 177, 0.22), transparent 55%),
+        radial-gradient(circle at 80% 90%, rgba(14, 165, 233, 0.22), transparent 55%),
+        var(--ink-dark);
+    }
+
+    .grant-cta__inner {
+      max-width: 800px;
+      display: grid;
+      gap: 24px;
+    }
+
+    .grant-cta__eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-family: var(--font-sans);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(230, 251, 247, 0.65);
+    }
+
+    .grant-cta__eyebrow::before {
+      content: '';
+      width: 24px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    .grant-cta__title {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: clamp(30px, 4vw, 52px);
+      line-height: 1.08;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+      margin: 0;
+      text-wrap: balance;
+    }
+
+    .grant-cta__text {
+      font-family: var(--font-sans);
+      font-size: clamp(15px, 1.6vw, 17px);
+      line-height: 1.65;
+      color: rgba(230, 251, 247, 0.7);
+      max-width: 560px;
+      margin: 0;
+    }
+
+    .grant-cta .btn {
+      justify-self: start;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (min-width: 768px) {
+      .grant-hero { padding: 136px 0 112px; }
+      .grant-section { padding: 112px 0; }
+      .grant-cta { padding: 128px 0; }
+
+      .grant-section__head {
+        grid-template-columns: 1fr 1fr;
+        gap: 48px;
+        align-items: end;
+      }
+      .grant-section__head > .grant-section__eyebrow,
+      .grant-section__head > .grant-section__title { grid-column: 1 / 2; }
+      .grant-section__head > .grant-section__intro {
+        grid-column: 2 / 3;
+        align-self: end;
+      }
+
+      .team-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .team-member + .team-member {
+        border-left: 0;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .grant-hero { padding: 176px 0 140px; }
+      .grant-section { padding: 140px 0; }
+
+      .goals-list {
+        grid-template-columns: 1fr 1fr;
+        gap: 0;
+      }
+      .goals-list .goal-item {
+        border-right: 1px solid var(--rule);
+        padding-right: 40px;
+      }
+      .goals-list .goal-item:nth-child(2n) {
+        border-right: none;
+        padding-right: 0;
+        padding-left: 40px;
+      }
+      .goals-list .goal-item:nth-child(2n):hover {
+        padding-left: 48px;
+      }
+
+      .team-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+  </style>
+</head>
+
+<body data-page="grant">
+
+  <!-- ===== HEADER ===== -->
+  <header class="header" id="header">
+    <div class="container header__inner">
+      <a href="index.html" class="header__logo" aria-label="Факультет ИИ РУДН — на главную">
+        <span class="header__logo-icon">AI</span>
+        <img src="assets/rudn-logo.svg" alt="" class="header__logo-mark" aria-hidden="true">
+        <span class="header__logo-text">Факультет ИИ</span>
+        <span class="header__logo-subtitle">РУДН</span>
+      </a>
+
+      <nav class="header__nav" aria-label="Основная навигация">
+        <ul class="header__nav-list">
+          <li><a href="about.html" class="header__nav-link">О факультете</a></li>
+          <li><a href="achievements.html" class="header__nav-link">Достижения</a></li>
+          <li><a href="news.html" class="header__nav-link">Новости</a></li>
+          <li><a href="reviews.html" class="header__nav-link">Отзывы</a></li>
+          <li><a href="admission.html" class="header__nav-link">Поступление</a></li>
+        </ul>
+      </nav>
+
+      <button class="btn btn--outline btn--sm header__cta" onclick="openChat()">Задать вопрос</button>
+
+      <button class="header__burger" id="burger" aria-label="Открыть меню">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ===== SIDEBAR ===== -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+  <nav class="sidebar" id="sidebar" aria-label="Мобильное меню">
+    <button class="sidebar__close" id="sidebarClose" aria-label="Закрыть меню">&times;</button>
+    <ul class="sidebar__menu">
+      <li><a href="about.html" class="sidebar__link">О факультете</a></li>
+      <li><a href="achievements.html" class="sidebar__link">Достижения</a></li>
+      <li><a href="news.html" class="sidebar__link">Новости</a></li>
+      <li><a href="reviews.html" class="sidebar__link">Отзывы</a></li>
+      <li><a href="admission.html" class="sidebar__link">Поступление</a></li>
+    </ul>
+  </nav>
+
+  <main>
+
+    <!-- ===== HERO ===== -->
+    <section class="grant-hero">
+      <div class="container grant-hero__inner">
+        <span class="grant-hero__badge">Научный грант · РНФ · 2024–2026</span>
+
+        <h1 class="grant-hero__title">
+          Генеративные <em>мультимодальные</em><br>модели нового поколения.
+        </h1>
+
+        <p class="grant-hero__lead">
+          Факультет искусственного интеллекта РУДН получил финансирование Российского
+          научного фонда на трёхлетнюю исследовательскую программу в области генеративных
+          мультимодальных моделей. Проект реализуется научной группой под руководством
+          проф. Захаровой М.Д.
+        </p>
+
+        <div class="grant-meta">
+          <div class="grant-meta__item">
+            <span class="grant-meta__label">Финансирование</span>
+            <span class="grant-meta__value">12 млн ₽</span>
+          </div>
+          <div class="grant-meta__item">
+            <span class="grant-meta__label">Срок</span>
+            <span class="grant-meta__value">2024 — 2026</span>
+          </div>
+          <div class="grant-meta__item">
+            <span class="grant-meta__label">Участники</span>
+            <span class="grant-meta__value">8 человек</span>
+          </div>
+          <div class="grant-meta__item">
+            <span class="grant-meta__label">Фонд</span>
+            <span class="grant-meta__value">РНФ</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== ЦЕЛИ ===== -->
+    <section class="grant-section">
+      <div class="container">
+        <header class="grant-section__head">
+          <span class="grant-section__eyebrow">01 — Цели проекта</span>
+          <h2 class="grant-section__title">Что мы исследуем.</h2>
+          <p class="grant-section__intro">
+            Проект направлен на создание нового класса генеративных моделей,
+            способных работать одновременно с текстом, изображениями и звуком.
+          </p>
+        </header>
+
+        <ul class="goals-list">
+          <li class="goal-item">
+            <span class="goal-item__num">01</span>
+            <div class="goal-item__body">
+              <h3 class="goal-item__title">Унифицированная мультимодальная архитектура</h3>
+              <p class="goal-item__text">
+                Разработка единой архитектуры трансформерного типа, обрабатывающей текст,
+                изображения, аудио и структурированные данные в общем скрытом пространстве
+                без модальностно-специфических энкодеров.
+              </p>
+            </div>
+          </li>
+
+          <li class="goal-item">
+            <span class="goal-item__num">02</span>
+            <div class="goal-item__body">
+              <h3 class="goal-item__title">Эффективное обучение при ограниченных данных</h3>
+              <p class="goal-item__text">
+                Разработка методов few-shot и zero-shot адаптации мультимодальных моделей
+                для русскоязычного домена, где аннотированных данных значительно меньше, чем
+                в английском.
+              </p>
+            </div>
+          </li>
+
+          <li class="goal-item">
+            <span class="goal-item__num">03</span>
+            <div class="goal-item__body">
+              <h3 class="goal-item__title">Контролируемая генерация и выравнивание</h3>
+              <p class="goal-item__text">
+                Исследование методов RLHF и Constitutional AI для выравнивания генеративных
+                моделей с предпочтениями пользователей, обеспечения фактической точности
+                и снижения галлюцинаций.
+              </p>
+            </div>
+          </li>
+
+          <li class="goal-item">
+            <span class="goal-item__num">04</span>
+            <div class="goal-item__body">
+              <h3 class="goal-item__title">Интерпретируемость и безопасность</h3>
+              <p class="goal-item__text">
+                Разработка инструментов объяснения решений мультимодальных моделей
+                и методов обнаружения нежелательных или вредоносных паттернов генерации
+                на этапе инференса.
+              </p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===== КОМАНДА ===== -->
+    <section class="grant-section grant-section--alt">
+      <div class="container">
+        <header class="grant-section__head">
+          <span class="grant-section__eyebrow">02 — Команда</span>
+          <h2 class="grant-section__title">Исследовательская группа.</h2>
+          <p class="grant-section__intro">
+            Восемь специалистов — преподаватели, аспиранты и студенты магистратуры —
+            объединились для работы над проектом.
+          </p>
+        </header>
+
+        <div class="team-grid">
+          <div class="team-member">
+            <div class="team-member__avatar">ЗМ</div>
+            <div>
+              <div class="team-member__name">Захарова Мария Дмитриевна</div>
+              <div class="team-member__rank">PhD, доцент</div>
+              <p class="team-member__role">Руководитель проекта · генеративные модели</p>
+            </div>
+          </div>
+
+          <div class="team-member">
+            <div class="team-member__avatar">КД</div>
+            <div>
+              <div class="team-member__name">Козлов Дмитрий Андреевич</div>
+              <div class="team-member__rank">PhD, доцент</div>
+              <p class="team-member__role">Со-руководитель · NLP, LLM</p>
+            </div>
+          </div>
+
+          <div class="team-member">
+            <div class="team-member__avatar">СЕ</div>
+            <div>
+              <div class="team-member__name">Смирнова Елена Викторовна</div>
+              <div class="team-member__rank">к.ф.-м.н., доцент</div>
+              <p class="team-member__role">Ведущий исследователь · компьютерное зрение</p>
+            </div>
+          </div>
+
+          <div class="team-member">
+            <div class="team-member__avatar">АР</div>
+            <div>
+              <div class="team-member__name">Алексеев Роман Игоревич</div>
+              <div class="team-member__rank">аспирант</div>
+              <p class="team-member__role">Разработка диффузионных архитектур</p>
+            </div>
+          </div>
+
+          <div class="team-member">
+            <div class="team-member__avatar">ТА</div>
+            <div>
+              <div class="team-member__name">Тихонова Анна Сергеевна</div>
+              <div class="team-member__rank">аспирант</div>
+              <p class="team-member__role">Выравнивание моделей, RLHF</p>
+            </div>
+          </div>
+
+          <div class="team-member">
+            <div class="team-member__avatar">МВ</div>
+            <div>
+              <div class="team-member__name">Михайлов Вадим Олегович</div>
+              <div class="team-member__rank">магистрант 2 курса</div>
+              <p class="team-member__role">Интерпретируемость · аудиомодальность</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== ПЛАН И РЕЗУЛЬТАТЫ ===== -->
+    <section class="grant-section">
+      <div class="container">
+        <header class="grant-section__head">
+          <span class="grant-section__eyebrow">03 — План проекта</span>
+          <h2 class="grant-section__title">Этапы и ожидаемые результаты.</h2>
+          <p class="grant-section__intro">
+            Трёхлетняя программа разбита на последовательные этапы с публикацией
+            промежуточных результатов на ведущих конференциях.
+          </p>
+        </header>
+
+        <div class="milestones">
+          <div class="milestone">
+            <span class="milestone__year">2024</span>
+            <div class="milestone__dot"></div>
+            <div class="milestone__content">
+              <div class="milestone__title">Базовая архитектура и датасеты</div>
+              <p class="milestone__desc">
+                Проектирование унифицированной архитектуры, сбор и разметка русскоязычного
+                мультимодального датасета (текст + изображение + аудио) объёмом 2 млн пар.
+                Первая публикация на AIST 2024.
+              </p>
+            </div>
+          </div>
+
+          <div class="milestone">
+            <span class="milestone__year">2025</span>
+            <div class="milestone__dot"></div>
+            <div class="milestone__content">
+              <div class="milestone__title">Предобучение и выравнивание</div>
+              <p class="milestone__desc">
+                Предобучение модели на кластере РУДН (256 GPU·часов), fine-tuning
+                с использованием RLHF на предпочтениях аннотаторов. Публикации на
+                NeurIPS 2025 и ACL 2025.
+              </p>
+            </div>
+          </div>
+
+          <div class="milestone">
+            <span class="milestone__year">2026</span>
+            <div class="milestone__dot"></div>
+            <div class="milestone__content">
+              <div class="milestone__title">Открытый выпуск и внедрение</div>
+              <p class="milestone__desc">
+                Публикация модели в открытом доступе под лицензией Apache 2.0.
+                Демонстрация применения в медицинской диагностике совместно с НМИЦ онкологии.
+                Итоговый отчёт в РНФ.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CTA ===== -->
+    <section class="grant-cta">
+      <div class="container grant-cta__inner">
+        <span class="grant-cta__eyebrow">Сотрудничество</span>
+        <h2 class="grant-cta__title">Хотите участвовать в исследовании?</h2>
+        <p class="grant-cta__text">
+          Мы приглашаем студентов магистратуры и аспирантов присоединиться к команде
+          проекта. Также открыты к партнёрству с компаниями, заинтересованными
+          в применении мультимодальных моделей.
+        </p>
+        <a href="#" class="btn btn--white btn--lg" onclick="openChat(); return false;">
+          Связаться с командой <span class="arrow">→</span>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__col">
+        <div class="footer__brand">
+          <span class="header__logo-icon">AI</span>
+          <span class="header__logo-text">Факультет ИИ</span>
+        </div>
+        <p class="footer__university">
+          Факультет искусственного интеллекта Российского университета дружбы народов
+        </p>
+        <p class="footer__copy">&copy; 2026 РУДН · Все права защищены</p>
+      </div>
+
+      <div class="footer__col">
+        <h4 class="footer__heading">Приёмная комиссия</h4>
+        <p>+7 (495) 123-45-67</p>
+        <p>admission@ai-faculty.ru</p>
+        <p>Пн – Пт · 09:00 – 18:00</p>
+      </div>
+
+      <div class="footer__col">
+        <h4 class="footer__heading">Адрес</h4>
+        <p>Москва, ул. Примерная, 1</p>
+        <p>Корпус «Нейрон», 3 этаж</p>
+      </div>
+
+      <div class="footer__col">
+        <h4 class="footer__heading">Соцсети</h4>
+        <div class="footer__socials">
+          <a href="#" class="footer__social" aria-label="Telegram">Telegram</a>
+          <a href="#" class="footer__social" aria-label="VKontakte">VK</a>
+          <a href="#" class="footer__social" aria-label="YouTube">YouTube</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== CHAT WIDGET ===== -->
+  <div class="chat-widget" id="chatWidget">
+    <button class="chat-widget__toggle" id="chatToggle" aria-label="Открыть чат с ИИ-помощником">
+      <svg class="chat-widget__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+      </svg>
+      <svg class="chat-widget__close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+
+    <div class="chat-widget__window" id="chatWindow">
+      <div class="chat-widget__header">
+        <div class="chat-widget__status"></div>
+        <span>Алиса — ИИ-помощник факультета</span>
+        <button class="chat-widget__close-btn" onclick="closeChat()" aria-label="Закрыть чат">&times;</button>
+      </div>
+      <div class="chat-widget__messages" id="chatMessages">
+        <div class="chat-widget__msg chat-widget__msg--bot">
+          Здравствуйте. Я Алиса, виртуальный помощник факультета ИИ.
+          Задайте вопрос о поступлении, программах или научной жизни.
+        </div>
+      </div>
+      <div class="chat-widget__input-area">
+        <input type="text" id="chatInput" class="chat-widget__input" placeholder="Напишите сообщение…">
+        <button class="chat-widget__send" id="chatSend" aria-label="Отправить">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="tile-registry.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

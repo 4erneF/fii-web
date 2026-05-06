@@ -1397,6 +1397,77 @@ h1 em, h2 em, h3 em {
   .admin-fab__label { opacity: 1; transform: none; }
 }
 
+/* ===== TICKER (бегущая строка) ===== */
+.ticker {
+  width: 100%;
+  overflow: hidden;
+  background: var(--surface);
+  border-bottom: 1px solid var(--rule);
+  height: 38px;
+  display: flex;
+  align-items: center;
+  cursor: default;
+  user-select: none;
+}
+
+.ticker__track {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  white-space: nowrap;
+  animation: ticker-scroll 40s linear infinite;
+  will-change: transform;
+}
+
+.ticker:hover .ticker__track {
+  animation-play-state: paused;
+}
+
+@keyframes ticker-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.ticker__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 32px;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  transition: color var(--t);
+}
+
+.ticker:hover .ticker__item {
+  color: var(--ink);
+}
+
+.ticker__dot {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ticker__track {
+    animation: none;
+    flex-wrap: wrap;
+    white-space: normal;
+    gap: 8px;
+    padding: 6px 0;
+  }
+  .ticker {
+    height: auto;
+    min-height: 38px;
+  }
+}
+
 /* ===== CAROUSEL ===== */
 .carousel-wrapper {
   position: relative;
@@ -1522,6 +1593,26 @@ h1 em, h2 em, h3 em {
   line-height: 1.55;
   color: var(--muted);
   margin: 0;
+  flex-grow: 1;
+}
+
+.achieve-card__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  border-bottom: 1px solid transparent;
+  padding-bottom: 1px;
+  transition: border-color var(--t), color var(--t);
+  margin-top: 4px;
+}
+
+.achieve-card__link:hover {
+  border-color: var(--accent);
 }
 
 /* ===== TEACHER CARDS ===== */
