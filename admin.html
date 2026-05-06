@@ -38,6 +38,10 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5C7 4 7 7 7 7"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5C17 4 17 7 17 7"/><path d="M4 22h16"/><path d="M10 22V8a5 5 0 0 1 4 0v14"/><path d="M8 9h8l1 13H7z"/></svg>
         Достижения
       </button>
+      <button class="admin-nav__link" data-section="ticker">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+        Бегущая строка
+      </button>
       <button class="admin-nav__link" data-section="settings">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h.01A1.65 1.65 0 0 0 9 3.09V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h.01a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"/></svg>
         Настройки сайта
@@ -261,6 +265,34 @@
               <button class="icon-btn icon-btn--danger" title="Удалить">🗑</button>
             </li>
           </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== TICKER SECTION ========== -->
+    <section class="admin-section" data-section="ticker">
+      <div class="admin-card">
+        <div class="admin-card__head">
+          <div>
+            <h2 class="admin-card__title">Бегущая строка</h2>
+            <p class="admin-card__hint">Строк в очереди: <strong id="tickerCount">—</strong>. Отображаются слева направо, зацикленно.</p>
+          </div>
+          <div class="admin-card__head-actions">
+            <button class="btn btn--ghost" type="button" id="tickerReset">Сбросить</button>
+            <button class="btn btn--primary" type="button" id="tickerSave">Сохранить</button>
+          </div>
+        </div>
+
+        <ul class="ticker-admin-list" id="tickerList">
+          <!-- Рендерится через admin.js -->
+        </ul>
+
+        <div class="ticker-admin-add">
+          <span class="ticker-admin-hint">Порядок строк — сверху вниз, то есть слева направо на сайте.</span>
+          <button class="btn btn--ghost" type="button" id="tickerAddItem">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Добавить строку
+          </button>
         </div>
       </div>
     </section>

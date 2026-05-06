@@ -135,6 +135,26 @@ document.querySelectorAll('.cards, .cards--programs, .reviews__grid').forEach((g
   });
 });
 
+// ===== TICKER OVERRIDE (читает из localStorage) =====
+(function applyTickerOverride() {
+  const track = document.querySelector('.ticker__track');
+  if (!track) return;
+  let items;
+  try { items = JSON.parse(localStorage.getItem('fii_ticker_items')); } catch { items = null; }
+  if (!Array.isArray(items) || items.length === 0) return;
+  // Дублируем для бесшовного цикла
+  const doubled = [...items, ...items];
+  track.innerHTML = doubled.map(text => {
+    const span = document.createElement('span');
+    span.className = 'ticker__item';
+    const dot = document.createElement('span');
+    dot.className = 'ticker__dot';
+    span.appendChild(dot);
+    span.appendChild(document.createTextNode(text));
+    return span.outerHTML;
+  }).join('');
+})();
+
 // ===== CAROUSEL NAVIGATION =====
 (function initCarousels() {
   const SCROLL_AMOUNT = 300;
