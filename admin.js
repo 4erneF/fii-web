@@ -29,8 +29,96 @@
     news:         { title: 'Новости',       subtitle: 'Управление публикациями факультета' },
     photos:       { title: 'Фотографии',    subtitle: 'Галерея факультета' },
     achievements: { title: 'Достижения',    subtitle: 'Карточки побед и наград' },
+    ticker:       { title: 'Бегущая строка', subtitle: 'Строки, которые прокручиваются под шапкой главной страницы' },
     settings:     { title: 'Настройки сайта', subtitle: 'Тексты, контакты и блоки' },
   };
+
+  // ----- Ticker management ------------------------------------------
+  const TICKER_KEY = 'fii_ticker_items';
+  const TICKER_DEFAULTS = [
+    '1 место на Всероссийской олимпиаде по ИИ 2025',
+    'Приём 2026/27 открыт — 75 бюджетных мест',
+    'Публикация в Nature Machine Intelligence',
+    'Грант РНФ — 12 млн рублей на генеративные модели',
+    'ТОП-3 вузов по направлению ИИ в России',
+    'Победа на международном хакатоне HackAI 2025',
+    'Стратегическое партнёрство со Сбером',
+    '95% выпускников трудоустроены в первый год',
+  ];
+
+  const loadTickerItems = () => {
+    try {
+      const items = JSON.parse(localStorage.getItem(TICKER_KEY));
+      return Array.isArray(items) ? items : [...TICKER_DEFAULTS];
+    } catch { return [...TICKER_DEFAULTS]; }
+  };
+
+  const saveTickerItems = (items) => {
+    localStorage.setItem(TICKER_KEY, JSON.stringify(items));
+  };
+
+  const renderTickerList = () => {
+    const list = $('#tickerList');
+    const countEl = $('#tickerCount');
+    if (!list) return;
+    const items = loadTickerItems();
+    if (countEl) countEl.textContent = items.length;
+    list.innerHTML = items.map((text, i) => `
+      <li class="ticker-admin-item" data-index="${i}">
+        <span class="ticker-admin-num">${i + 1}</span>
+        <input type="text" class="ticker-admin-input" value="${escapeHtml(text)}" data-index="${i}" placeholder="Текст строки…">
+        <button class="icon-btn icon-btn--danger ticker-del-btn" data-index="${i}" title="Удалить">🗑</button>
+      </li>`).join('');
+  };
+
+  renderTickerList();
+
+  const tickerList = $('#tickerList');
+  if (tickerList) {
+    tickerList.addEventListener('click', (e) => {
+      const btn = e.target.closest('.ticker-del-btn');
+      if (!btn) return;
+      const idx = Number(btn.dataset.index);
+      const items = loadTickerItems();
+      items.splice(idx, 1);
+      saveTickerItems(items);
+      renderTickerList();
+      showToast('Строка удалена');
+    });
+  }
+
+  const tickerAddBtn = $('#tickerAddItem');
+  if (tickerAddBtn) {
+    tickerAddBtn.addEventListener('click', () => {
+      const items = loadTickerItems();
+      items.push('Новая строка…');
+      saveTickerItems(items);
+      renderTickerList();
+      const lastInput = $('#tickerList').querySelector('.ticker-admin-item:last-child .ticker-admin-input');
+      if (lastInput) { lastInput.focus(); lastInput.select(); }
+    });
+  }
+
+  const tickerSaveBtn = $('#tickerSave');
+  if (tickerSaveBtn) {
+    tickerSaveBtn.addEventListener('click', () => {
+      const inputs = $$('.ticker-admin-input');
+      const items = inputs.map(i => i.value.trim()).filter(Boolean);
+      saveTickerItems(items);
+      renderTickerList();
+      showToast('Бегущая строка сохранена ✓');
+    });
+  }
+
+  const tickerResetBtn = $('#tickerReset');
+  if (tickerResetBtn) {
+    tickerResetBtn.addEventListener('click', () => {
+      if (!confirm('Вернуть строки по умолчанию?')) return;
+      localStorage.removeItem(TICKER_KEY);
+      renderTickerList();
+      showToast('Бегущая строка сброшена');
+    });
+  }
 
   // ----- PAGE / TILE REGISTRY ---------------------------------------
   // Общий реестр страниц и плашек вынесен в tile-registry.js, чтобы его

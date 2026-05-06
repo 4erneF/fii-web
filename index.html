@@ -54,6 +54,29 @@
     </ul>
   </nav>
 
+  <!-- ===== TICKER ===== -->
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker__track">
+      <span class="ticker__item"><span class="ticker__dot"></span>1 место на Всероссийской олимпиаде по ИИ 2025</span>
+      <span class="ticker__item"><span class="ticker__dot"></span>Приём 2026/27 открыт — 75 бюджетных мест</span>
+      <span class="ticker__item"><span class="ticker__dot"></span>Публикация в Nature Machine Intelligence</span>
+      <span class="ticker__item"><span class="ticker__dot"></span>Грант РНФ — 12 млн рублей на генеративные модели</span>
+      <span class="ticker__item"><span class="ticker__dot"></span>ТОП-3 вузов по направлению ИИ в России</span>
+      <span class="ticker__item"><span class="ticker__dot"></span>Победа на международном хакатоне HackAI 2025</span>
+      <span class="ticker__item"><span class="ticker__dot"></span>Стратегическое партнёрство со Сбером</span>
+      <span class="ticker__item"><span class="ticker__dot"></span>95% выпускников трудоустроены в первый год</span>
+      <!-- дубль для бесшовного цикла -->
+      <span class="ticker__item"><span class="ticker__dot"></span>1 место на Всероссийской олимпиаде по ИИ 2025</span>
+      <span class="ticker__item"><span class="ticker__dot"></span>Приём 2026/27 открыт — 75 бюджетных мест</span>
+      <span class="ticker__item"><span class="ticker__dot"></span>Публикация в Nature Machine Intelligence</span>
+      <span class="ticker__item"><span class="ticker__dot"></span>Грант РНФ — 12 млн рублей на генеративные модели</span>
+      <span class="ticker__item"><span class="ticker__dot"></span>ТОП-3 вузов по направлению ИИ в России</span>
+      <span class="ticker__item"><span class="ticker__dot"></span>Победа на международном хакатоне HackAI 2025</span>
+      <span class="ticker__item"><span class="ticker__dot"></span>Стратегическое партнёрство со Сбером</span>
+      <span class="ticker__item"><span class="ticker__dot"></span>95% выпускников трудоустроены в первый год</span>
+    </div>
+  </div>
+
   <!-- ===== HERO ===== -->
   <section class="hero" id="hero" data-tile="hero">
     <div class="container hero__inner">
@@ -162,11 +185,165 @@
     </div>
   </section>
 
+  <!-- ===== ACHIEVEMENTS CAROUSEL ===== -->
+  <section class="section achievements-carousel" id="achievements-section" data-tile="achievements-carousel">
+    <div class="container">
+      <header class="section__head">
+        <span class="section__eyebrow">03 — Достижения</span>
+        <h2 class="section__title">Победы, которые говорят за нас.</h2>
+        <p class="section__subtitle">
+          Научные премии, победы в соревнованиях и признание индустрии —
+          результат совместной работы студентов и преподавателей.
+        </p>
+      </header>
+
+      <div class="carousel-wrapper">
+        <button class="carousel-btn carousel-btn--prev" aria-label="Предыдущие достижения" data-carousel="achievements">&#8592;</button>
+        <div class="carousel" id="achievementsCarousel">
+
+          <article class="achieve-card" data-tile="achieve-card-1">
+            <span class="achieve-card__tag">Олимпиада</span>
+            <p class="achieve-card__year">2025</p>
+            <h3 class="achieve-card__title">1 место на Всероссийской олимпиаде по ИИ</h3>
+            <p class="achieve-card__desc">Команда факультета заняла первое место среди 47 вузов страны в категории «Машинное обучение».</p>
+          </article>
+
+          <article class="achieve-card" data-tile="achieve-card-2">
+            <span class="achieve-card__tag">Публикация</span>
+            <p class="achieve-card__year">2025</p>
+            <h3 class="achieve-card__title">Статья в Nature Machine Intelligence</h3>
+            <p class="achieve-card__desc">Исследование по интерпретируемости нейронных сетей принято в один из ведущих журналов мира.</p>
+          </article>
+
+          <article class="achieve-card" data-tile="achieve-card-3">
+            <span class="achieve-card__tag">Хакатон</span>
+            <p class="achieve-card__year">2025</p>
+            <h3 class="achieve-card__title">Победа на международном HackAI</h3>
+            <p class="achieve-card__desc">Студенческая команда обошла участников из 23 стран с решением для медицинской диагностики на основе CV.</p>
+          </article>
+
+          <article class="achieve-card" data-tile="achieve-card-4">
+            <span class="achieve-card__tag">Рейтинг</span>
+            <p class="achieve-card__year">2025</p>
+            <h3 class="achieve-card__title">ТОП-3 по направлению ИИ в России</h3>
+            <p class="achieve-card__desc">Факультет вошёл в тройку лучших по подготовке специалистов в области искусственного интеллекта по версии Эксперт РА.</p>
+          </article>
+
+          <article class="achieve-card" data-tile="achieve-card-5">
+            <span class="achieve-card__tag">Грант</span>
+            <p class="achieve-card__year">2024</p>
+            <h3 class="achieve-card__title">Грант РНФ на 12 млн рублей</h3>
+            <p class="achieve-card__desc">Научная группа получила финансирование на трёхлетнее исследование в области генеративных мультимодальных моделей.</p>
+            <a href="grant.html" class="achieve-card__link">Подробнее <span class="arrow">→</span></a>
+          </article>
+
+          <article class="achieve-card" data-tile="achieve-card-6">
+            <span class="achieve-card__tag">Партнёрство</span>
+            <p class="achieve-card__year">2024</p>
+            <h3 class="achieve-card__title">Стратегическое соглашение со Сбером</h3>
+            <p class="achieve-card__desc">Подписано соглашение о целевой подготовке студентов и совместных R&amp;D-проектах в области FinTech AI.</p>
+          </article>
+
+          <article class="achieve-card" data-tile="achieve-card-7">
+            <span class="achieve-card__tag">Стартап</span>
+            <p class="achieve-card__year">2024</p>
+            <h3 class="achieve-card__title">Выпускник основал стартап MedAI</h3>
+            <p class="achieve-card__desc">Компания привлекла $2 млн инвестиций для разработки ИИ-ассистента для врачей первичного звена.</p>
+          </article>
+
+        </div>
+        <button class="carousel-btn carousel-btn--next" aria-label="Следующие достижения" data-carousel="achievements">&#8594;</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TEACHERS CAROUSEL ===== -->
+  <section class="section teachers-carousel" id="teachers" data-tile="teachers-carousel">
+    <div class="container">
+      <header class="section__head">
+        <span class="section__eyebrow">04 — Преподаватели</span>
+        <h2 class="section__title">Учёные, которые передают знания.</h2>
+        <p class="section__subtitle">
+          Каждый преподаватель — действующий исследователь с публикациями,
+          грантами и опытом работы в индустрии.
+        </p>
+      </header>
+
+      <div class="carousel-wrapper">
+        <button class="carousel-btn carousel-btn--prev" aria-label="Предыдущие преподаватели" data-carousel="teachers">&#8592;</button>
+        <div class="carousel" id="teachersCarousel">
+
+          <article class="teacher-card" data-tile="teacher-card-1">
+            <div class="teacher-card__avatar">АИ</div>
+            <div class="teacher-card__body">
+              <h3 class="teacher-card__name">Иванов Алексей Петрович</h3>
+              <p class="teacher-card__rank">д.т.н., профессор</p>
+              <p class="teacher-card__role">Заведующий кафедрой машинного обучения</p>
+              <p class="teacher-card__bio">20 лет в академической науке. Автор 80+ публикаций, лауреат премии Правительства РФ в области образования.</p>
+            </div>
+          </article>
+
+          <article class="teacher-card" data-tile="teacher-card-2">
+            <div class="teacher-card__avatar">СЕ</div>
+            <div class="teacher-card__body">
+              <h3 class="teacher-card__name">Смирнова Елена Викторовна</h3>
+              <p class="teacher-card__rank">к.ф.-м.н., доцент</p>
+              <p class="teacher-card__role">Специалист по компьютерному зрению</p>
+              <p class="teacher-card__bio">Работала в лаборатории Samsung AI. Под её руководством защищены 12 кандидатских диссертаций.</p>
+            </div>
+          </article>
+
+          <article class="teacher-card" data-tile="teacher-card-3">
+            <div class="teacher-card__avatar">КД</div>
+            <div class="teacher-card__body">
+              <h3 class="teacher-card__name">Козлов Дмитрий Андреевич</h3>
+              <p class="teacher-card__rank">PhD, доцент</p>
+              <p class="teacher-card__role">Эксперт в области NLP и LLM</p>
+              <p class="teacher-card__bio">Стажировался в Stanford NLP Group. Соавтор открытой языковой модели RuBERT-2, используемой в 300+ проектах.</p>
+            </div>
+          </article>
+
+          <article class="teacher-card" data-tile="teacher-card-4">
+            <div class="teacher-card__avatar">ПО</div>
+            <div class="teacher-card__body">
+              <h3 class="teacher-card__name">Петрова Ольга Николаевна</h3>
+              <p class="teacher-card__rank">д.т.н., профессор</p>
+              <p class="teacher-card__role">Научный руководитель лаборатории робототехники</p>
+              <p class="teacher-card__bio">Руководит грантом РНФ. Соавтор патентов на алгоритмы управления автономными системами.</p>
+            </div>
+          </article>
+
+          <article class="teacher-card" data-tile="teacher-card-5">
+            <div class="teacher-card__avatar">НС</div>
+            <div class="teacher-card__body">
+              <h3 class="teacher-card__name">Новиков Сергей Михайлович</h3>
+              <p class="teacher-card__rank">к.т.н., старший преподаватель</p>
+              <p class="teacher-card__role">Специалист по обучению с подкреплением</p>
+              <p class="teacher-card__bio">Экс-ML инженер Яндекса. Разрабатывает RL-агентов для промышленной автоматизации совместно с Росатомом.</p>
+            </div>
+          </article>
+
+          <article class="teacher-card" data-tile="teacher-card-6">
+            <div class="teacher-card__avatar">ЗМ</div>
+            <div class="teacher-card__body">
+              <h3 class="teacher-card__name">Захарова Мария Дмитриевна</h3>
+              <p class="teacher-card__rank">PhD, доцент</p>
+              <p class="teacher-card__role">Исследователь в области генеративных моделей</p>
+              <p class="teacher-card__bio">Публикации на NeurIPS и ICML. Читает авторский курс «Диффузионные модели» — один из первых в России.</p>
+            </div>
+          </article>
+
+        </div>
+        <button class="carousel-btn carousel-btn--next" aria-label="Следующие преподаватели" data-carousel="teachers">&#8594;</button>
+      </div>
+    </div>
+  </section>
+
   <!-- ===== REVIEWS ===== -->
   <section class="section reviews" id="reviews" data-tile="reviews-section">
     <div class="container">
       <header class="section__head">
-        <span class="section__eyebrow">03 — Голоса студентов</span>
+        <span class="section__eyebrow">05 — Голоса студентов</span>
         <h2 class="section__title">Те, кто уже строит здесь свою траекторию.</h2>
         <p class="section__subtitle">
           Три коротких свидетельства о том, как устроена учебная и научная жизнь факультета.
