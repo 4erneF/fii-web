@@ -22,7 +22,7 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 
 from .config import get_settings
@@ -74,10 +74,12 @@ def shared_tile_registry() -> FileResponse:
 if settings.ADMIN_STATIC_DIR.exists():
     app.mount("/admin", StaticFiles(directory=settings.ADMIN_STATIC_DIR, html=True), name="admin")
 
+    # Redirect, not FileResponse — otherwise relative <link>/<script> paths in
+    # login.html resolve against "/" and 404 (admin-api.js, admin.css live
+    # under /admin/).
     @app.get("/", include_in_schema=False)
-    def admin_root() -> FileResponse:
-        login = settings.ADMIN_STATIC_DIR / "login.html"
-        return FileResponse(login)
+    def admin_root() -> RedirectResponse:
+        return RedirectResponse(url="/admin/login.html", status_code=302)
 
 
 @app.get("/healthz", include_in_schema=False)
