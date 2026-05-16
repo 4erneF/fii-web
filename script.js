@@ -135,24 +135,119 @@ document.querySelectorAll('.cards, .cards--programs, .reviews__grid').forEach((g
   });
 });
 
-// ===== TICKER OVERRIDE (читает из localStorage) =====
-(function applyTickerOverride() {
-  const track = document.querySelector('.ticker__track');
-  if (!track) return;
-  let items;
-  try { items = JSON.parse(localStorage.getItem('fii_ticker_items')); } catch { items = null; }
-  if (!Array.isArray(items) || items.length === 0) return;
-  // Дублируем для бесшовного цикла
-  const doubled = [...items, ...items];
-  track.innerHTML = doubled.map(text => {
-    const span = document.createElement('span');
-    span.className = 'ticker__item';
-    const dot = document.createElement('span');
-    dot.className = 'ticker__dot';
-    span.appendChild(dot);
-    span.appendChild(document.createTextNode(text));
-    return span.outerHTML;
-  }).join('');
+// ===== CMS overrides loader =====
+// Тянет с админского API:
+//   - тексты блоков (data-tile / fields из tile-registry.js)
+//   - видимость блоков
+//   - бегущую строку
+// При недоступности API падает обратно на localStorage (дев-режим).
+//
+// URL API задаётся одним из способов (в порядке приоритета):
+//   1. window.FII_API_BASE = 'https://admin.example.com';
+//   2. <meta name="fii-api-base" content="https://admin.example.com">
+//   3. пусто → ничего не тянем, работает только localStorage-fallback.
+(function () {
+  const metaEl = document.querySelector('meta[name="fii-api-base"]');
+  const apiBase = (window.FII_API_BASE || (metaEl && metaEl.content) || '').replace(/\/$/, '');
+
+  const pageKey = document.body?.dataset?.page || null;
+
+  // Build a map: tile_id -> field_id -> { selector, type } from the shared registry.
+  function buildFieldMap(pageDef) {
+    const map = {};
+    (pageDef?.tiles || []).forEach(tile => {
+      map[tile.id] = {};
+      (tile.fields || []).forEach(f => {
+        map[tile.id][f.id] = { selector: f.selector, type: f.type };
+      });
+    });
+    return map;
+  }
+
+  function applyOverrides(payload) {
+    const registry = window.PAGE_REGISTRY || [];
+    const pageDef = registry.find(p => p.key === pageKey);
+    const fieldMap = buildFieldMap(pageDef);
+
+    const visibility = payload.visibility || {};
+    const content    = payload.content || {};
+
+    document.querySelectorAll('[data-tile]').forEach((tileEl) => {
+      const tileId = tileEl.dataset.tile;
+      if (visibility[tileId] === false) {
+        tileEl.setAttribute('hidden', '');
+        tileEl.style.display = 'none';
+        return;
+      }
+      const overrides = content[tileId];
+      if (!overrides || !fieldMap[tileId]) return;
+      Object.entries(overrides).forEach(([fieldId, value]) => {
+        const descriptor = fieldMap[tileId][fieldId];
+        if (!descriptor) return;
+        const target = tileEl.querySelector(descriptor.selector);
+        if (!target) return;
+        if (descriptor.type === 'html') target.innerHTML = value;
+        else target.textContent = value;
+      });
+    });
+  }
+
+  function applyTicker(items) {
+    const track = document.querySelector('.ticker__track');
+    if (!track || !Array.isArray(items) || !items.length) return;
+    const doubled = [...items, ...items];
+    track.innerHTML = doubled.map(text => {
+      const span = document.createElement('span');
+      span.className = 'ticker__item';
+      const dot = document.createElement('span');
+      dot.className = 'ticker__dot';
+      span.appendChild(dot);
+      span.appendChild(document.createTextNode(text));
+      return span.outerHTML;
+    }).join('');
+  }
+
+  function readLocalFallback() {
+    const safeJson = (key) => {
+      try { return JSON.parse(localStorage.getItem(key)) || {}; }
+      catch { return {}; }
+    };
+    return {
+      content:    (safeJson('fii_tile_content')[pageKey])    || {},
+      visibility: (safeJson('fii_tile_visibility')[pageKey]) || {},
+      ticker:     (() => {
+        try { const v = JSON.parse(localStorage.getItem('fii_ticker_items')); return Array.isArray(v) ? v : []; }
+        catch { return []; }
+      })(),
+    };
+  }
+
+  async function load() {
+    if (!pageKey) return;
+    if (apiBase) {
+      try {
+        const res = await fetch(`${apiBase}/api/public/overrides?page_key=${encodeURIComponent(pageKey)}`,
+                                { credentials: 'omit' });
+        if (res.ok) {
+          const data = await res.json();
+          applyOverrides(data);
+          applyTicker(data.ticker || []);
+          return;
+        }
+      } catch (e) {
+        console.warn('[FII] API недоступен, использую localStorage:', e.message);
+      }
+    }
+    const fallback = readLocalFallback();
+    applyOverrides(fallback);
+    applyTicker(fallback.ticker);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', load, { once: true });
+  } else {
+    load();
+  }
 })();
 
 // ===== CAROUSEL NAVIGATION =====
@@ -171,83 +266,3 @@ document.querySelectorAll('.cards, .cards--programs, .reviews__grid').forEach((g
   });
 })();
 
-// ===== ADMIN PANEL FAB =====
-// Внедряем плавающую кнопку «Панель администратора» на всех страницах сайта.
-// В свёрнутом состоянии — небольшая шестерёнка, при наведении курсора — разворачивается.
-(function injectAdminFab() {
-  if (document.querySelector('.admin-fab')) return;
-
-  const fab = document.createElement('a');
-  fab.href = 'admin.html';
-  fab.className = 'admin-fab admin-fab--collapsed';
-  fab.setAttribute('aria-label', 'Открыть панель администратора');
-  fab.title = 'Панель администратора';
-  fab.innerHTML = `
-    <span class="admin-fab__icon" aria-hidden="true">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
-        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.6 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"/>
-      </svg>
-    </span>
-    <span class="admin-fab__label">Панель администратора</span>
-  `;
-  document.body.appendChild(fab);
-})();
-
-// ===== TILE VISIBILITY + CONTENT LOADER =====
-// Читает из localStorage настройки, сделанные в CMS (раздел «Страницы сайта»):
-//   - fii_tile_visibility — скрывает плашки, которые админ отключил;
-//   - fii_tile_content    — подставляет изменённый текст для полей плашек.
-// Описание страниц и плашек берётся из window.PAGE_REGISTRY (tile-registry.js).
-(function applyTileOverrides() {
-  const pageKey = document.body && document.body.dataset ? document.body.dataset.page : null;
-  if (!pageKey) return;
-
-  const readJSON = (key) => {
-    try { return JSON.parse(localStorage.getItem(key)) || {}; }
-    catch { return {}; }
-  };
-
-  const visibilityState = readJSON('fii_tile_visibility')[pageKey] || {};
-  const contentState    = readJSON('fii_tile_content')[pageKey] || {};
-
-  // Строим карту id плашки → описание полей (из общего реестра)
-  const registry = window.PAGE_REGISTRY || [];
-  const pageDef  = registry.find(p => p.key === pageKey);
-  const fieldMap = {}; // { tileId: { fieldId: { selector, type } } }
-  if (pageDef) {
-    pageDef.tiles.forEach(tile => {
-      fieldMap[tile.id] = {};
-      (tile.fields || []).forEach(f => {
-        fieldMap[tile.id][f.id] = { selector: f.selector, type: f.type };
-      });
-    });
-  }
-
-  document.querySelectorAll('[data-tile]').forEach((tileEl) => {
-    const tileId = tileEl.dataset.tile;
-
-    // 1) Видимость
-    if (visibilityState[tileId] === false) {
-      tileEl.setAttribute('hidden', '');
-      tileEl.style.display = 'none';
-      return; // скрытую плашку переписывать не нужно
-    }
-
-    // 2) Контент: подстановка значений полей
-    const overrides = contentState[tileId];
-    if (!overrides || !fieldMap[tileId]) return;
-
-    Object.entries(overrides).forEach(([fieldId, value]) => {
-      const descriptor = fieldMap[tileId][fieldId];
-      if (!descriptor) return;
-      const target = tileEl.querySelector(descriptor.selector);
-      if (!target) return;
-      if (descriptor.type === 'html') {
-        target.innerHTML = value;
-      } else {
-        target.textContent = value;
-      }
-    });
-  });
-})();
