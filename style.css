@@ -1837,7 +1837,7 @@ h1 em, h2 em, h3 em {
   }
 
   .footer__inner {
-    grid-template-columns: 2.4fr 1fr 1fr 1fr;
+    grid-template-columns: 2.4fr 1fr 1fr;
     gap: 56px;
   }
 
@@ -1883,6 +1883,162 @@ h1 em, h2 em, h3 em {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
   border-radius: var(--radius-sm);
+}
+
+/* ===== HEADER SOCIALS =====
+   Соцсети в шапке сайта: компактные текстовые ссылки между навигацией
+   и CTA. Скрыты на мобиле — на маленьких экранах живут внутри сайдбара. */
+.header__socials {
+  display: none;
+  align-items: center;
+  gap: 16px;
+  padding-right: 4px;
+  margin-right: 4px;
+  border-right: 1px solid var(--rule);
+}
+
+.header__social {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding-right: 16px;
+  transition: color var(--t);
+}
+
+.header__social:last-child {
+  padding-right: 12px;
+}
+
+.header__social:hover {
+  color: var(--accent);
+}
+
+@media (min-width: 1024px) {
+  .header__socials {
+    display: inline-flex;
+  }
+}
+
+/* ===== SIDEBAR SOCIALS =====
+   Соцсети внутри мобильного сайдбара, под навигацией. */
+.sidebar__socials {
+  margin-top: auto;
+  padding-top: 24px;
+  display: flex;
+  gap: 20px;
+  border-top: 1px solid var(--rule);
+}
+
+.sidebar__social {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding-bottom: 2px;
+  border-bottom: 1px solid var(--rule);
+  transition: color var(--t), border-color var(--t);
+}
+
+.sidebar__social:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* ===== LEADERSHIP (about.html) =====
+   Сетка с фотографиями деканов и замов лаборатории. */
+.leadership-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+}
+
+.leadership-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.leadership-card__photo {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  background: linear-gradient(135deg, rgba(20, 224, 177, 0.08), rgba(14, 165, 233, 0.06));
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted-2);
+}
+
+.leadership-card__photo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      45deg,
+      transparent 0 14px,
+      rgba(250, 250, 247, 0.025) 14px 15px
+    );
+  pointer-events: none;
+}
+
+.leadership-card__photo svg {
+  width: 56px;
+  height: 56px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.25;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.55;
+}
+
+.leadership-card__role {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.leadership-card__name {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(20px, 2vw, 24px);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin: 0;
+}
+
+.leadership-card__caption {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--muted);
+  margin: 0;
+}
+
+@media (min-width: 640px) {
+  .leadership-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .leadership-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+  }
 }
 
 /* ===== DARK THEME — тема всегда тёмная (AI Tech), системные настройки не переопределяют. ===== */
