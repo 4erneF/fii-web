@@ -466,6 +466,12 @@
         </ul>
       </nav>
 
+      <div class="header__socials" aria-label="Соцсети">
+        <a href="#" class="header__social" aria-label="Telegram">TG</a>
+        <a href="#" class="header__social" aria-label="VKontakte">VK</a>
+        <a href="#" class="header__social" aria-label="YouTube">YT</a>
+      </div>
+
       <button class="btn btn--outline btn--sm header__cta" onclick="openChat()">Задать вопрос</button>
 
       <button class="header__burger" id="burger" aria-label="Открыть меню">
@@ -485,6 +491,11 @@
       <li><a href="reviews.html" class="sidebar__link">Отзывы</a></li>
       <li><a href="admission.html" class="sidebar__link">Поступление</a></li>
     </ul>
+    <div class="sidebar__socials" aria-label="Соцсети">
+      <a href="#" class="sidebar__social">Telegram</a>
+      <a href="#" class="sidebar__social">VK</a>
+      <a href="#" class="sidebar__social">YouTube</a>
+    </div>
   </nav>
 
   <main>
@@ -582,12 +593,81 @@
       </div>
     </section>
 
-    <!-- 3. ПАРТНЁРЫ И ПРАКТИКА -->
-    <section class="about-section about-section--alt" aria-labelledby="partners-title" data-tile="partners-section">
+    <!-- 3. РУКОВОДСТВО -->
+    <section class="about-section about-section--alt" aria-labelledby="leadership-title" data-tile="leadership-section">
       <div class="container">
 
         <header class="about-section__head">
-          <span class="about-section__eyebrow">02 — Партнёры</span>
+          <span class="about-section__eyebrow">02 — Руководство</span>
+          <h2 class="about-section__title" id="leadership-title">
+            Деканат и лаборатория ИИ.
+          </h2>
+          <p class="about-section__intro">
+            Деканы факультета и заместители руководителя лаборатории искусственного
+            интеллекта — команда, которая курирует образовательную и научную работу.
+          </p>
+        </header>
+
+        <div class="leadership-grid">
+
+          <article class="leadership-card" data-tile="leadership-dean">
+            <div class="leadership-card__photo" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <circle cx="12" cy="8" r="4"/>
+                <path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/>
+              </svg>
+            </div>
+            <span class="leadership-card__role">Декан</span>
+            <h3 class="leadership-card__name">Имя Фамилия</h3>
+            <p class="leadership-card__caption">Декан факультета искусственного интеллекта.</p>
+          </article>
+
+          <article class="leadership-card" data-tile="leadership-vice-dean">
+            <div class="leadership-card__photo" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <circle cx="12" cy="8" r="4"/>
+                <path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/>
+              </svg>
+            </div>
+            <span class="leadership-card__role">Заместитель декана</span>
+            <h3 class="leadership-card__name">Имя Фамилия</h3>
+            <p class="leadership-card__caption">Заместитель декана по учебной работе.</p>
+          </article>
+
+          <article class="leadership-card" data-tile="leadership-lab-deputy-1">
+            <div class="leadership-card__photo" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <circle cx="12" cy="8" r="4"/>
+                <path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/>
+              </svg>
+            </div>
+            <span class="leadership-card__role">Зам. лаборатории ИИ</span>
+            <h3 class="leadership-card__name">Имя Фамилия</h3>
+            <p class="leadership-card__caption">Заместитель руководителя лаборатории ИИ.</p>
+          </article>
+
+          <article class="leadership-card" data-tile="leadership-lab-deputy-2">
+            <div class="leadership-card__photo" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <circle cx="12" cy="8" r="4"/>
+                <path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/>
+              </svg>
+            </div>
+            <span class="leadership-card__role">Зам. лаборатории ИИ</span>
+            <h3 class="leadership-card__name">Имя Фамилия</h3>
+            <p class="leadership-card__caption">Заместитель руководителя лаборатории ИИ.</p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. ПАРТНЁРЫ И ПРАКТИКА -->
+    <section class="about-section" aria-labelledby="partners-title" data-tile="partners-section">
+      <div class="container">
+
+        <header class="about-section__head">
+          <span class="about-section__eyebrow">03 — Партнёры</span>
           <h2 class="about-section__title" id="partners-title">
             Партнёры и практика.
           </h2>
@@ -623,7 +703,7 @@
     <section class="career-cta" aria-labelledby="career-title" data-tile="career-cta">
       <div class="container career-cta__inner">
 
-        <span class="career-cta__eyebrow">03 — Карьерные перспективы</span>
+        <span class="career-cta__eyebrow">04 — Карьерные перспективы</span>
 
         <h2 class="career-cta__title" id="career-title">
           Карьера ещё до диплома.
@@ -684,14 +764,6 @@
         <p>Корпус «Нейрон», 3 этаж</p>
       </div>
 
-      <div class="footer__col">
-        <h4 class="footer__heading">Соцсети</h4>
-        <div class="footer__socials">
-          <a href="#" class="footer__social" aria-label="Telegram">Telegram</a>
-          <a href="#" class="footer__social" aria-label="VKontakte">VK</a>
-          <a href="#" class="footer__social" aria-label="YouTube">YouTube</a>
-        </div>
-      </div>
     </div>
   </footer>
 
